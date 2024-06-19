@@ -15,7 +15,7 @@
 # FUCK YOU!.
 # 
 # In this case, there is no warranty and technical support.
-# =======================================================================================
+# ---------------------------------------------------------------------------------------
 
 
 # =======================================================================================
@@ -27,7 +27,7 @@
 # ---------------------------------------------------------------------------------------
 # CONTENT           | - Toolchain configuration
 #                   | - Toolchain specification
-# =======================================================================================
+# ---------------------------------------------------------------------------------------
 
 
 # =======================================================================================
@@ -36,7 +36,7 @@
 # VERSION | DATE        | BY            | DESCRIPTION
 # ---------------------------------------------------------------------------------------
 # 0.0.0.1 | 15.06.2024  | Thanh Tran    | Initialization
-# =======================================================================================
+# ---------------------------------------------------------------------------------------
 
 
 # =======================================================================================
@@ -49,33 +49,28 @@ set(USERCFG_OBJCOPY_EXE         "objcopy")
 
 
 # =======================================================================================
-# GENERAL CONSTRAIN
+# USER CONFIGURATION FOR FLAGS TO BE USED WITH COMPILER / LINKER
 # =======================================================================================
-# Constrain 1 - Requirement - Looking for mingw64 gcc
-find_program(MINGW64_GCC_EXECUTION ${USERCFG_C_COMPILER_EXE})
-if (NOT MINGW64_GCC_EXECUTION)
-    message("-- [ERROR] PROCESS TERMINATED!")
-    message(FATAL_ERROR "[ERROR] USERCFG_C_COMPILER_EXE not found!")
-endif ()
 
-# Constrain 2 - Requirement - Looking for mingw64 g++
-find_program(MINGW64_GPP_EXECUTION ${USERCFG_CXX_COMPILER_EXE})
-if (NOT MINGW64_GPP_EXECUTION)
-    message("-- [ERROR] PROCESS TERMINATED!")
-    message(FATAL_ERROR "[ERROR] USERCFG_CXX_COMPILER_EXE not found!")
-endif ()
+# Debug - Compile
+set(COMPILE_DEBUG_FLAG "")
+list(APPEND COMPILE_DEBUG_FLAG " -Wall ")
+list(APPEND COMPILE_DEBUG_FLAG " -D COMPILE_DEBUG_FLAG=1")
 
-# Constrain 3 - Optional - Looking for mingw64 ar
-find_program(MINGW64_AR_EXECUTION ${USERCFG_AR_EXE})
-if(NOT MINGW64_AR_EXECUTION)
-    message("-- [WARNING] USERCFG_AR_EXE not found!")
-endif()
+# Debug - Linking
+set(LINKING_DEBUG_FLAG "")
+list(APPEND LINKING_DEBUG_FLAG " -Wall")
+list(APPEND LINKING_DEBUG_FLAG " -D LINKING_DEBUG_FLAG=1")
 
-# Constrain 4 - Optional - Looking for objcopy
-find_program(MINGW64_OBJCOPY_EXECUTION ${USERCFG_OBJCOPY_EXE})
-if(NOT MINGW64_OBJCOPY_EXECUTION)
-    message("-- [WARNING] USERCFG_AR_EXE not found!")
-endif()
+# Release - Compile
+set(COMPILE_RELEASE_FLAG "")
+list(APPEND COMPILE_RELEASE_FLAG " -Wall")
+list(APPEND COMPILE_RELEASE_FLAG " -D COMPILE_RELEASE_FLAG=1")
+
+# Release - Linking
+set(LINKING_RELEASE_FLAG "")
+list(APPEND LINKING_RELEASE_FLAG " -Wall")
+list(APPEND LINKING_RELEASE_FLAG " -D LINKING_RELEASE_FLAG=1")
 
 
 # =======================================================================================
@@ -83,12 +78,3 @@ endif()
 # =======================================================================================
 # set(CMAKE_C_COMPILER_WORKS 1)                   # Skip compiler testing process
 # set(CMAKE_CXX_COMPILER_WORKS 1)                 # Skip compiler testing process
-
-
-# =======================================================================================
-# TOOLCHAIN SPECIFICATION
-# =======================================================================================
-set(CMAKE_C_COMPILER    ${MINGW64_GCC_EXECUTION})
-set(CMAKE_CXX_COMPILER  ${MINGW64_GPP_EXECUTION})
-set(CMAKE_AR            ${MINGW64_AR_EXECUTION})
-set(CMAKE_OBJCOPY       ${MINGW64_OBJCOPY_EXECUTION})

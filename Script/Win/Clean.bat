@@ -15,7 +15,7 @@
 :: FUCK YOU!.
 :: 
 :: In this case, there is no warranty and technical support.
-:: ======================================================================================
+:: --------------------------------------------------------------------------------------
 
 
 :: ======================================================================================
@@ -26,7 +26,7 @@
 :: DESCRIPTION      | - Remove all contents inside Root/Build directory
 ::                  | - Remove all contents inside Root/Diagram directory
 ::                  | - Remove all contents inside Root/Install directory
-:: ======================================================================================
+:: --------------------------------------------------------------------------------------
 
 
 :: ======================================================================================
@@ -34,9 +34,9 @@
 :: ======================================================================================
 @echo off
 echo "-- [CLEANING] Cleaning results from last build process, include: "
-echo "-- The directory <Build>"
-echo "-- The directory <Diagram>"
-echo "-- The directory <Install>"
+echo "-- [CLEANING] The directory <Build>"
+echo "-- [CLEANING] The directory <Diagram>"
+echo "-- [CLEANING] The directory <Install>"
 
 
 :: ======================================================================================

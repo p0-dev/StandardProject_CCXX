@@ -1,0 +1,8 @@
+D:/Workspace/StandardProject_CCXX/Build/CMakeFiles/edit_cache.dir
+D:/Workspace/StandardProject_CCXX/Build/CMakeFiles/rebuild_cache.dir
+D:/Workspace/StandardProject_CCXX/Build/Codebase/CMakeFiles/StandardProject_exe.dir
+D:/Workspace/StandardProject_CCXX/Build/Codebase/CMakeFiles/edit_cache.dir
+D:/Workspace/StandardProject_CCXX/Build/Codebase/CMakeFiles/rebuild_cache.dir
+D:/Workspace/StandardProject_CCXX/Build/Codebase/Source/DummyModule1/CMakeFiles/LibDummyModule1.dir
+D:/Workspace/StandardProject_CCXX/Build/Codebase/Source/DummyModule1/CMakeFiles/edit_cache.dir
+D:/Workspace/StandardProject_CCXX/Build/Codebase/Source/DummyModule1/CMakeFiles/rebuild_cache.dir
