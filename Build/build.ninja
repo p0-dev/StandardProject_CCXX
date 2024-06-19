@@ -12,7 +12,7 @@
 
 # =============================================================================
 # Project: StandardProject
-# Configurations: Release
+# Configurations: Debug
 # =============================================================================
 
 #############################################
@@ -24,7 +24,7 @@ ninja_required_version = 1.5
 #############################################
 # Set configuration variable for custom commands.
 
-CONFIGURATION = Release
+CONFIGURATION = Debug
 # =============================================================================
 # Include auxiliary files.
 
@@ -120,9 +120,9 @@ build install/strip: phony CMakeFiles/install/strip.util
 
 build cmake_object_order_depends_target_StandardProject_exe: phony || cmake_object_order_depends_target_DummyModule1
 
-build Codebase/CMakeFiles/StandardProject_exe.dir/Source/Main.c.obj: C_COMPILER__StandardProject_exe_unscanned_Release D$:/Workspace/StandardProject_CCXX/Codebase/Source/Main.c || cmake_object_order_depends_target_StandardProject_exe
+build Codebase/CMakeFiles/StandardProject_exe.dir/Source/Main.c.obj: C_COMPILER__StandardProject_exe_unscanned_Debug D$:/Workspace/StandardProject_CCXX/Codebase/Source/Main.c || cmake_object_order_depends_target_StandardProject_exe
   DEP_FILE = Codebase\CMakeFiles\StandardProject_exe.dir\Source\Main.c.obj.d
-  FLAGS = -O3 -DNDEBUG -Wall -DCOMPILE_RELEASE_FLAG=1
+  FLAGS = -g -Wall -DCOMPILE_DEBUG_FLAG1=1
   INCLUDES = -ID:/Workspace/StandardProject_CCXX/Codebase/Include
   OBJECT_DIR = Codebase\CMakeFiles\StandardProject_exe.dir
   OBJECT_FILE_DIR = Codebase\CMakeFiles\StandardProject_exe.dir\Source
@@ -137,9 +137,9 @@ build Codebase/CMakeFiles/StandardProject_exe.dir/Source/Main.c.obj: C_COMPILER_
 #############################################
 # Link the executable Codebase\StandardProject_exe.exe
 
-build Codebase/StandardProject_exe.exe: C_EXECUTABLE_LINKER__StandardProject_exe_Release Codebase/CMakeFiles/StandardProject_exe.dir/Source/Main.c.obj | Codebase/Source/DummyModule1/libDummyModule1.a || Codebase/Source/DummyModule1/libDummyModule1.a
-  FLAGS = -O3 -DNDEBUG
-  LINK_FLAGS = -Wall -DLINKING_RELEASE_FLAG=1
+build Codebase/StandardProject_exe.exe: C_EXECUTABLE_LINKER__StandardProject_exe_Debug Codebase/CMakeFiles/StandardProject_exe.dir/Source/Main.c.obj | Codebase/Source/DummyModule1/libDummyModule1.a || Codebase/Source/DummyModule1/libDummyModule1.a
+  FLAGS = -g
+  LINK_FLAGS = -Wall -DLINKING_DEBUG_FLAG=1
   LINK_LIBRARIES = Codebase/Source/DummyModule1/libDummyModule1.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = Codebase\CMakeFiles\StandardProject_exe.dir
   POST_BUILD = cd .
@@ -229,9 +229,9 @@ build Codebase/install/strip: phony Codebase/CMakeFiles/install/strip.util
 
 build cmake_object_order_depends_target_DummyModule1: phony || .
 
-build Codebase/Source/DummyModule1/CMakeFiles/DummyModule1.dir/DummyModule1.c.obj: C_COMPILER__DummyModule1_unscanned_Release D$:/Workspace/StandardProject_CCXX/Codebase/Source/DummyModule1/DummyModule1.c || cmake_object_order_depends_target_DummyModule1
+build Codebase/Source/DummyModule1/CMakeFiles/DummyModule1.dir/DummyModule1.c.obj: C_COMPILER__DummyModule1_unscanned_Debug D$:/Workspace/StandardProject_CCXX/Codebase/Source/DummyModule1/DummyModule1.c || cmake_object_order_depends_target_DummyModule1
   DEP_FILE = Codebase\Source\DummyModule1\CMakeFiles\DummyModule1.dir\DummyModule1.c.obj.d
-  FLAGS = -O3 -DNDEBUG -Wall -DCOMPILE_RELEASE_FLAG=1
+  FLAGS = -g -Wall -DCOMPILE_DEBUG_FLAG1=1
   INCLUDES = -ID:/Workspace/StandardProject_CCXX/Codebase/Include
   OBJECT_DIR = Codebase\Source\DummyModule1\CMakeFiles\DummyModule1.dir
   OBJECT_FILE_DIR = Codebase\Source\DummyModule1\CMakeFiles\DummyModule1.dir
@@ -246,8 +246,8 @@ build Codebase/Source/DummyModule1/CMakeFiles/DummyModule1.dir/DummyModule1.c.ob
 #############################################
 # Link the static library Codebase\Source\DummyModule1\libDummyModule1.a
 
-build Codebase/Source/DummyModule1/libDummyModule1.a: C_STATIC_LIBRARY_LINKER__DummyModule1_Release Codebase/Source/DummyModule1/CMakeFiles/DummyModule1.dir/DummyModule1.c.obj
-  LANGUAGE_COMPILE_FLAGS = -O3 -DNDEBUG
+build Codebase/Source/DummyModule1/libDummyModule1.a: C_STATIC_LIBRARY_LINKER__DummyModule1_Debug Codebase/Source/DummyModule1/CMakeFiles/DummyModule1.dir/DummyModule1.c.obj
+  LANGUAGE_COMPILE_FLAGS = -g
   OBJECT_DIR = Codebase\Source\DummyModule1\CMakeFiles\DummyModule1.dir
   POST_BUILD = cd .
   PRE_LINK = cd .

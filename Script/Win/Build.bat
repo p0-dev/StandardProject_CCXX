@@ -48,6 +48,8 @@ echo -- [BATCH_INFO] BUILDING THE PROJECT ...
 :: ======================================================================================
 set "USERCFG_FILE=UserConfig.cfg"
 set "PROJECTCFG_FILE=ProjectConfig.cfg"
+set "BUILD_DEBUG=Debug"
+set "BUILD_RELEASE=Release"
 
 
 :: ======================================================================================
@@ -223,6 +225,15 @@ if "" == "%USERCFG_PROJECT_NAME%" (
 if "" == "%USERCFG_BUILD_CONFIGURATION%" (
     echo -- [FATAL_ERROR] USERCFG_BUILD_CONFIGURATION "(%PROJECTCFG_FILE%)" is not set
     exit
+)
+
+if not "%BUILD_DEBUG%" == "%USERCFG_BUILD_CONFIGURATION%" (
+    if not "%BUILD_RELEASE%" == "%USERCFG_BUILD_CONFIGURATION%" ( 
+        echo -- [FATAL_ERROR] USERCFG_BUILD_CONFIGURATION "(%PROJECTCFG_FILE%)" is incorrected
+        exit
+    ) else (
+        echo -- [BATCH_INFO] USERCFG_BUILD_CONFIGURATION: %USERCFG_BUILD_CONFIGURATION%
+    )
 ) else (
     echo -- [BATCH_INFO] USERCFG_BUILD_CONFIGURATION: %USERCFG_BUILD_CONFIGURATION%
 )

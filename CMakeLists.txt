@@ -172,22 +172,11 @@
 
 
 # =======================================================================================
-# CONSTANTS / MACROS
-# =======================================================================================
-set(BUILD_RELEASE       "Release")
-set(BUILD_DEBUG         "Debug")
-
-
-# =======================================================================================
-# PROJECT CONSTANTS / MACROS
+# PROJECT VARRIABLES
 # =======================================================================================
 message("-- [INFO] DEFAULT_INSTALL_BINARY_DIR: ${DEFAULT_INSTALL_BINARY_DIR}")
-
-set(INSTALL_BIN_DIR     "Bin")
-set(INSTALL_LIB_DIR     "Lib")
-set(INSTALL_INC_DIR     "Include")
-
-set(INSTALL_CMAKE_DIR   "CMake")
+message("-- [INFO] DEFAULT_INSTALL_LIBRARY_DIR: ${DEFAULT_INSTALL_LIBRARY_DIR}")
+message("-- [INFO] DEFAULT_INSTALL_INCLUDE_DIR: ${DEFAULT_INSTALL_INCLUDE_DIR}")
 
 
 # =======================================================================================
