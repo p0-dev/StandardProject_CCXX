@@ -120,14 +120,15 @@ if "%BUILD_CONFIGURATION%" == "%BUILD_DEBUG%" (
         echo "-- [INFO] BUILD_CONFIGURATION: %BUILD_CONFIGURATION%"
     ) else (
         echo "-- [FATAL_ERROR] BUILD_CONFIGURATION is not %BUILD_DEBUG% nor %BUILD_RELEASE%"
+        echo "-- [FATAL ERROR] PROCESS TERMINATED!"
         exit
     )
 )
 
 :: Constrain - Toolchain Cmake File availability
 if not exist %cd%\%TOOLCHAIN_CMAKE_FILE% (
-    echo "-- [FATAL_ERROR] PROCESS TERMINATED!"
     echo "-- [FATAL_ERROR] %TOOLCHAIN_CMAKE_FILE% does not existed."
+    echo "-- [FATAL_ERROR] PROCESS TERMINATED!"
     exit
 ) else (
     echo "-- [INFO] Found %cd%\%TOOLCHAIN_CMAKE_FILE%"

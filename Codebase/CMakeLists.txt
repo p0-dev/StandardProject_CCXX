@@ -58,8 +58,8 @@ install(DIRECTORY ${H_DIR}/ DESTINATION ${INSTALL_INC_DIR})
 set(DummyModule1_DIR ${CMAKE_CURRENT_SOURCE_DIR}/Source/DummyModule1)
 set(DummyModule1_TARGET DummyModule1)
 
-message("-- [INFO] Directory Of Module:s<DummyModule1>= ${DummyModule1_DIR}")
-message("-- [INFO] Target Of Module:s<DummyModule1>= ${DummyModule1_TARGET}")
+message("-- [INFO] Directory Of Module:<DummyModule1>: ${DummyModule1_DIR}")
+message("-- [INFO] Target Of Module:<DummyModule1>: ${DummyModule1_TARGET}")
 
 
 # =======================================================================================

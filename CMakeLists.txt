@@ -200,6 +200,17 @@ message("-- [INFO] PROJECT_NAME = ${PROJECT_NAME}")
 
 
 # =======================================================================================
+# PROJECT MAIN TARGETS DEFINITION
+# =======================================================================================
+set(EXE_TARGET "${PROJECT_NAME}_exe")
+set(CMAKE_TARGET "${PROJECT_NAME}_cmake")
+
+message("-- [INFO] Available Main Targets:")
+message("-- [INFO] - ${EXE_TARGET}")
+message("-- [INFO] - ${CMAKE_TARGET}")
+
+
+# =======================================================================================
 # GENERAL CONSTRAINS
 # =======================================================================================
 
@@ -210,13 +221,12 @@ if(NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/Codebase/CMakeLists.txt)
 endif()
 
 # Contrains 2 - Required - Checking for build type
-if (NOT CMAKE_BUILD_TYPE)
-    message("-- [FATAL_ERROR] PROCESS TERMINATED")
-    message(FATAL_ERROR "-- [FATAL_ERROR] BUILD_CONFIGURATION is not configured.")
-elseif(NOT "${CMAKE_BUILD_TYPE}" STREQUAL "${BUILD_DEBUG}" AND "${CMAKE_BUILD_TYPE}" STREQUAL "${BUILD_RELEASE}")
-    message("-- [FATAL_ERROR] PROCESS TERMINATED")
+if("${CMAKE_BUILD_TYPE}" STREQUAL "${BUILD_DEBUG}")
+elseif("${CMAKE_BUILD_TYPE}" STREQUAL "${BUILD_RELEASE}")
+else()
+    message("-- [FATAL_ERROR] PROCESS TERMINATED!")
     message(FATAL_ERROR "-- [FATAL_ERROR] BUILD_CONFIGURATION is not corrected! 
-            Debug or Release.")
+                        Debug or Release.")
 endif()
 
 message("-- [INFO] BUILD_CONFIGURATION: ${CMAKE_BUILD_TYPE}")
@@ -304,17 +314,6 @@ message("-- [INFO] LINKING_RELEASE_FLAG: ${LINKING_RELEASE_FLAG}")
 set(CMAKE_EXPORT_COMPILE_COMMANDS 1)            # Export compile command for clangd
 
 message("-- [INFO] CMAKE_EXPORT_COMPILE_COMMANDS = ${CMAKE_EXPORT_COMPILE_COMMANDS}")
-
-
-# =======================================================================================
-# PROJECT MAIN TARGETS
-# =======================================================================================
-set(EXE_TARGET "${PROJECT_NAME}_exe")
-set(CMAKE_TARGET "${PROJECT_NAME}_cmake")
-
-message("-- [INFO] Available Main Targets:")
-message("-- [INFO] - ${EXE_TARGET}")
-message("-- [INFO] - ${CMAKE_TARGET}")
 
 
 # =======================================================================================
