@@ -30,36 +30,98 @@
 
 
 :: ======================================================================================
-:: BATCH SCRIPT CONFIGURATION
+:: CONFIGURATIONS
 :: ======================================================================================
 @echo off
-echo "-- [CLEANING] Cleaning results from last build process, include: "
-echo "-- [CLEANING] The directory <Build>"
-echo "-- [CLEANING] The directory <Diagram>"
-echo "-- [CLEANING] The directory <Install>"
+echo -- [BATCH_INFO] CLEANING PROJECT RESULT FILES ... 
 
 
 :: ======================================================================================
-:: NAVIGATION -> ROOT DIRECTORY
+:: CONSTANTS / MACROS
+:: ======================================================================================
+set "USERCFG_FILE=UserConfig.cfg"
+set "PROJECTCFG_FILE=ProjectConfig.cfg"
+
+
+:: ======================================================================================
+:: NAVIGATION -> ROOT
 :: ======================================================================================
 cd ../../
-echo "-- [INFO] Navigating to %cd%"
+echo -- [BATCH_INFO] Navigating to %cd%
+
+
+:: ======================================================================================
+:: PROCESSING CFG FILES
+:: ======================================================================================
+
+:: Constrain - Required - USERCFG_FILE
+if not exist %USERCFG_FILE% (
+    echo -- [FATAL_ERROR] Cannot find %cd%\%USERCFG_FILE%
+    exit
+) else (
+    echo -- [BATCH_INFO] Found %cd%\%USERCFG_FILE%
+)
+
+:: Constrain - Required - PROJECTCFG_FILE
+if not exist %PROJECTCFG_FILE% (
+    echo -- [FATAL_ERROR] Cannot find %cd%\%PROJECTCFG_FILE%
+    exit
+) else (
+    echo -- [BATCH_INFO] Found %cd%\%PROJECTCFG_FILE%
+)
+
+:: Process
+for /f "tokens=1,2 delims==" %%a in ('type "%PROJECTCFG_FILE%" ^| findstr /r /v /c:"#.*"') do (
+    :: DEFAULT_BUILD_DIR
+    if "%%a" == "DEFAULT_BUILD_DIR" set "DEFAULT_BUILD_DIR=%%b"
+    :: DEFAULT_DIAGRAM_DIR
+    if "%%a" == "DEFAULT_DIAGRAM_DIR" set "DEFAULT_DIAGRAM_DIR=%%b"
+    :: DEFAULT_INSTALL_DIR
+    if "%%a" == "DEFAULT_INSTALL_DIR" set "DEFAULT_INSTALL_DIR=%%b"
+)
+
+:: Constrain - Checking parameters
+if "" == "%DEFAULT_BUILD_DIR%" (
+    echo -- [FATAL_ERROR] DEFAULT_BUILD_DIR "(%PROJECTCFG_FILE%)" is not set
+    exit
+)
+if "" == "%DEFAULT_DIAGRAM_DIR%" (
+    echo -- [FATAL_ERROR] DEFAULT_DIAGRAM_DIR "(%PROJECTCFG_FILE%)" is not set
+    exit
+)
+if "" == "%DEFAULT_INSTALL_DIR%" (
+    echo -- [FATAL_ERROR] DEFAULT_INSTALL_DIR "(%PROJECTCFG_FILE%)" is not set
+    exit
+)
+
+:: Debug - Parameters
+echo -- [BATCH_INFO] DEFAULT_BUILD_DIR: %DEFAULT_BUILD_DIR%
+echo -- [BATCH_INFO] DEFAULT_DIAGRAM_DIR: %DEFAULT_DIAGRAM_DIR%
+echo -- [BATCH_INFO] DEFAULT_INSTALL_DIR: %DEFAULT_INSTALL_DIR%
 
 
 :: ======================================================================================
 :: CLEANING
 :: ======================================================================================
-:: Cleaning directory Root/Build/
-if exist Build\ (rmdir %cd%\Build /q /s)
-mkdir Build\
-echo "-- [CLEANING] Cleaned the directory <Build>"
 
-:: Cleaning directory Root/Diagram/
-if exist Diagram\ (rmdir %cd%\Diagram /q /s)
-mkdir Diagram\
-echo "-- [CLEANING] Cleaned the directory <Diagram>"
+:: Cleaning: DEFAULT_BUILD_DIR
+if exist %DEFAULT_BUILD_DIR% (
+    rmdir /s /q %DEFAULT_BUILD_DIR%
+    echo -- [BATCH_INFO] Cleaned directory %DEFAULT_BUILD_DIR%
+)
+:: Cleaning: DEFAULT_DIAGRAM_DIR
+if exist %DEFAULT_DIAGRAM_DIR% (
+    rmdir /s /q %DEFAULT_DIAGRAM_DIR%
+    echo -- [BATCH_INFO] Cleaned directory %DEFAULT_DIAGRAM_DIR%
+)
 
-:: Cleaning directory Root/Install/
-if exist Install\ (rmdir %cd%\Install /q /s)
-mkdir Install\
-echo "-- [CLEANING] Cleaned the directory <Install>"
+:: Cleaning: DEFAULT_INSTALL_DIR
+if exist %DEFAULT_INSTALL_DIR% (
+    rmdir /s /q %DEFAULT_INSTALL_DIR%
+    echo -- [BATCH_INFO] Cleaned directory %DEFAULT_INSTALL_DIR%
+)
+
+:: Create: required directory
+mkdir %DEFAULT_BUILD_DIR%
+mkdir %DEFAULT_DIAGRAM_DIR%
+mkdir %DEFAULT_INSTALL_DIR%

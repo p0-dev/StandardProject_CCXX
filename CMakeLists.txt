@@ -172,13 +172,21 @@
 
 
 # =======================================================================================
-# PROJECT CONSTANTS / MACROS
+# CONSTANTS / MACROS
 # =======================================================================================
 set(BUILD_RELEASE       "Release")
 set(BUILD_DEBUG         "Debug")
+
+
+# =======================================================================================
+# PROJECT CONSTANTS / MACROS
+# =======================================================================================
+message("-- [INFO] DEFAULT_INSTALL_BINARY_DIR: ${DEFAULT_INSTALL_BINARY_DIR}")
+
 set(INSTALL_BIN_DIR     "Bin")
 set(INSTALL_LIB_DIR     "Lib")
 set(INSTALL_INC_DIR     "Include")
+
 set(INSTALL_CMAKE_DIR   "CMake")
 
 
@@ -193,7 +201,7 @@ set(FLAG_OBJCOPY_AVAILABLE  0)
 # PROJECT CONFIGURATIONS
 # =======================================================================================
 cmake_minimum_required(VERSION 3.29)
-project(StandardProject)
+project(${PROJECT_NAME})
 
 message("-- [INFO] CMAKE_MINIMUM_REQUIRED_VERSION = ${CMAKE_MINIMUM_REQUIRED_VERSION}") 
 message("-- [INFO] PROJECT_NAME = ${PROJECT_NAME}")

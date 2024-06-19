@@ -1,3 +1,0 @@
-D:/Workspace/StandardProject_CCXX/Install/Release/Include/StandardProject/DummyModule1/DummyModule1.h
-D:/Workspace/StandardProject_CCXX/Install/Release/Lib/libDummyModule1.a
-D:/Workspace/StandardProject_CCXX/Install/Release/Bin/StandardProject_exe.exe

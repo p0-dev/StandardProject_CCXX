@@ -242,6 +242,15 @@ CMAKE_TOOLCHAIN_FILE:FILEPATH=D:/Workspace/StandardProject_CCXX/Toolchain/Mingw6
 // Studio IDE projects all commands are done without /nologo.
 CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 
+//No help, variable specified on the command line.
+DEFAULT_INSTALL_BINARY_DIR:UNINITIALIZED=Bin
+
+//No help, variable specified on the command line.
+DEFAULT_INSTALL_INCLUDE_DIR:UNINITIALIZED=Include
+
+//No help, variable specified on the command line.
+DEFAULT_INSTALL_LIBRARY_DIR:UNINITIALIZED=Lib
+
 //Path to a program.
 MINGW64_AR_EXECUTION:FILEPATH=C:/mingw64/bin/x86_64-w64-mingw32-gcc-ar.exe
 
@@ -253,6 +262,9 @@ MINGW64_GPP_EXECUTION:FILEPATH=C:/mingw64/bin/x86_64-w64-mingw32-g++.exe
 
 //Path to a program.
 MINGW64_OBJCOPY_EXECUTION:FILEPATH=C:/mingw64/bin/objcopy.exe
+
+//No help, variable specified on the command line.
+PROJECT_NAME:UNINITIALIZED=StandardProject
 
 //Value Computed by CMake
 StandardProject_BINARY_DIR:STATIC=D:/Workspace/StandardProject_CCXX/Build

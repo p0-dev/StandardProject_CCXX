@@ -37,101 +37,202 @@
 
 
 :: ======================================================================================
-:: BATCH SCRIPT CONFIGURATION
+:: CONFIGURATIONS
 :: ======================================================================================
 @echo off
-setlocal enabledelayedexpansion
-echo "-- [INFO] BUILDING THE PROJECT ... "
+echo -- [BATCH_INFO] BUILDING THE PROJECT ... 
 
 
 :: ======================================================================================
-:: BATCH SCRIPT CONSTANTS / MACROS
+:: CONSTANTS / MACROS
 :: ======================================================================================
-set "CMAKE_LIST_FILE=CMakeLists.txt"
 set "USERCFG_FILE=UserConfig.cfg"
-set "BUILD_DEBUG=Debug"
-set "BUILD_RELEASE=Release"
-set "BUILD_DIR=Build"
-set "BUILD_TOOL=Ninja"
-set "DIAGRAM_FILE=Overview.dot"
-set "DIAGRAM_FILE_URI=Diagram\Overview.dot"
-set "INSTALL_DIR=Install"
+set "PROJECTCFG_FILE=ProjectConfig.cfg"
 
 
 :: ======================================================================================
 :: NAVIGATION -> ROOT
 :: ======================================================================================
 cd ../../
-echo "-- [INFO] Navigating to %cd%"
+echo -- [BATCH_INFO] Navigating to %cd%
 
 
 :: ======================================================================================
-:: CONSTRAINS
+:: PROCESSING USER CONFIGURATION FILE
 :: ======================================================================================
-:: Constrain 1 - Required - Checking for the root CMakeLists.txt
-if not exist %CMAKE_LIST_FILE% (
-    echo "-- [FATAL ERROR] Cannot found main CMakeLists.txt at project root!"
-    echo "-- [FATAL ERROR] PROCESS TERMINATED!"
-    exit
-) else (
-    echo "-- [INFO] Found %cd%\%CMAKE_LIST_FILE%"
-)
 
-:: Constrain 2 - Required - Checking for the root UserConfig.cfg
+:: Constrain - Required - USERCFG_FILE
 if not exist %USERCFG_FILE% (
-    echo "-- [FATAL ERROR] Cannot found main UserConfig.cfg at project root!"
-    echo "-- [FATAL ERROR] PROCESS TERMINATED!"
+    echo -- [FATAL_ERROR] Cannot find %cd%\%USERCFG_FILE%
     exit
 ) else (
-    echo "-- [INFO] Found %cd%\%USERCFG_FILE%"
+    echo -- [BATCH_INFO] Found %cd%\%USERCFG_FILE%
+)
+
+:: Process PROJECTCFG_FILE
+for /f "tokens=1,2 delims==" %%a in ('type "%PROJECTCFG_FILE%" ^| findstr /r /v /c:"#.*"') do (
+    :: DEFAULT_BUILD_DIR
+    if "%%a" == "DEFAULT_BUILD_DIR" set "DEFAULT_BUILD_DIR=%%b"
+    :: DEFAULT_DIAGRAM_DIR
+    if "%%a" == "DEFAULT_DIAGRAM_DIR" set "DEFAULT_DIAGRAM_DIR=%%b"
+    :: DEFAULT_INSTALL_DIR
+    if "%%a" == "DEFAULT_INSTALL_DIR" set "DEFAULT_INSTALL_DIR=%%b"
+    :: DEFAULT_TOOLCHAIN_DIR
+    if "%%a" == "DEFAULT_TOOLCHAIN_DIR" set "DEFAULT_TOOLCHAIN_DIR=%%b"
+    :: DEFAULT_INSTALL_BINARY_DIR
+    if "%%a" == "DEFAULT_INSTALL_BINARY_DIR" set "DEFAULT_INSTALL_BINARY_DIR=%%b"
+    :: DEFAULT_INSTALL_LIBRARY_DIR
+    if "%%a" == "DEFAULT_INSTALL_LIBRARY_DIR" set "DEFAULT_INSTALL_LIBRARY_DIR=%%b"
+    :: DEFAULT_INSTALL_INCLUDE_DIR
+    if "%%a" == "DEFAULT_INSTALL_INCLUDE_DIR" set "DEFAULT_INSTALL_INCLUDE_DIR=%%b"
+)
+
+:: Constrain - DEFAULT_BUILD_DIR
+if "" == "%DEFAULT_BUILD_DIR%" (
+    echo -- [FATAL_ERROR] DEFAULT_BUILD_DIR "(%PROJECTCFG_FILE%)" is not set
+    exit
+) else (
+    echo -- [BATCH_INFO] DEFAULT_BUILD_DIR: %DEFAULT_BUILD_DIR%
+)
+
+if not exist %DEFAULT_BUILD_DIR% (
+    echo -- [FATAL_ERROR] Directory %DEFAULT_BUILD_DIR% is not existed
+    exit
+) else (
+    echo -- [BATCH_INFO] Found %cd%\%DEFAULT_BUILD_DIR%
+)
+
+:: Constrain - DEFAULT_DIAGRAM_DIR
+if "" == "%DEFAULT_DIAGRAM_DIR%" (
+    echo -- [FATAL_ERROR] DEFAULT_DIAGRAM_DIR "(%PROJECTCFG_FILE%)" is not set
+    exit
+) else (
+    echo -- [BATCH_INFO] DEFAULT_DIAGRAM_DIR: %DEFAULT_DIAGRAM_DIR%
+)
+
+if not exist %DEFAULT_DIAGRAM_DIR% (
+    echo -- [FATAL_ERROR] Directory %DEFAULT_DIAGRAM_DIR% is not existed
+    exit
+) else (
+    echo -- [BATCH_INFO] Found %cd%\%DEFAULT_DIAGRAM_DIR%
+)
+
+:: Constrain - DEFAULT_INSTALL_DIR
+if "" == "%DEFAULT_INSTALL_DIR%" (
+    echo -- [FATAL_ERROR] DEFAULT_INSTALL_DIR "(%PROJECTCFG_FILE%)" is not set
+    exit
+) else (
+    echo -- [BATCH_INFO] DEFAULT_INSTALL_DIR: %DEFAULT_INSTALL_DIR%
+)
+
+if not exist %DEFAULT_INSTALL_DIR% (
+    echo -- [FATAL_ERROR] DEFAULT_INSTALL_DIR "(%PROJECTCFG_FILE%)" is not set
+    exit
+) else (
+    echo -- [BATCH_INFO] Found %cd%\%DEFAULT_INSTALL_DIR%
+)
+
+:: Constrain - DEFAULT_TOOLCHAIN_DIR
+if "" == "%DEFAULT_TOOLCHAIN_DIR%" (
+    echo -- [FATAL_ERROR] DEFAULT_TOOLCHAIN_DIR "(%PROJECTCFG_FILE%)" is not set
+    exit
+) else (
+    echo -- [BATCH_INFO] DEFAULT_TOOLCHAIN_DIR: %DEFAULT_TOOLCHAIN_DIR%
+)
+
+if not exist %DEFAULT_TOOLCHAIN_DIR% (
+    echo -- [FATAL_ERROR] DEFAULT_TOOLCHAIN_DIR "(%PROJECTCFG_FILE%)" is not set
+    exit
+) else (
+    echo -- [BATCH_INFO] Found %cd%\%DEFAULT_TOOLCHAIN_DIR%
+)
+
+:: Constrain - DEFAULT_INSTALL_BINARY_DIR
+if "" == "%DEFAULT_INSTALL_BINARY_DIR%" (
+    echo -- [FATAL_ERROR] DEFAULT_INSTALL_BINARY_DIR "(%PROJECTCFG_FILE%)" is not set
+    exit
+) else (
+    echo -- [BATCH_INFO] DEFAULT_INSTALL_BINARY_DIR: %DEFAULT_INSTALL_BINARY_DIR%
+)
+
+:: Constrain - DEFAULT_INSTALL_LIBRARY_DIR
+if "" == "%DEFAULT_INSTALL_LIBRARY_DIR%" (
+    echo -- [FATAL_ERROR] DEFAULT_INSTALL_LIBRARY_DIR "(%PROJECTCFG_FILE%)" is not set
+    exit
+) else (
+    echo -- [BATCH_INFO] DEFAULT_INSTALL_LIBRARY_DIR: %DEFAULT_INSTALL_LIBRARY_DIR%
+)
+
+:: Constrain - DEFAULT_INSTALL_INCLUDE_DIR
+if "" == "%DEFAULT_INSTALL_INCLUDE_DIR%" (
+    echo -- [FATAL_ERROR] DEFAULT_INSTALL_INCLUDE_DIR "(%PROJECTCFG_FILE%)" is not set
+    exit
+) else (
+    echo -- [BATCH_INFO] DEFAULT_INSTALL_INCLUDE_DIR: %DEFAULT_INSTALL_INCLUDE_DIR%
 )
 
 
 :: ======================================================================================
-:: PROCESSING USER CONFIG
+:: PROCESSING PROJECT CONFIGURATION FILE
 :: ======================================================================================
-echo "-- [INFO] Processing UserConfig.cfg ... "
 
-:: Process
+:: Constrain - Required - PROJECTCFG_FILE
+if not exist %PROJECTCFG_FILE% (
+    echo -- [FATAL_ERROR] Cannot find %cd%\%PROJECTCFG_FILE%
+    exit
+) else (
+    echo -- [BATCH_INFO] Found %cd%\%PROJECTCFG_FILE%
+)
+
+:: Process USERCFG_FILE
 for /f "tokens=1,2 delims==" %%a in ('type "%USERCFG_FILE%" ^| findstr /r /v /c:"#.*"') do (
-    set "key=%%a"
-    set "value=%%b"
-    
-    rem Remove spaces from the key
-    set "key=!key: =!"
-    
-    rem Remove spaces from the value
-    set "value=!value: =!"
-    
-    rem Store the key-value pairs in local variables
-    if "!key!" == "BUILD_CONFIGURATION" set "BUILD_CONFIGURATION=!value!"
-    if "!key!" == "TOOLCHAIN_CMAKE_FILE" set "TOOLCHAIN_CMAKE_FILE=!value!"
+    :: USERCFG_TOOLCHAIN_CMAKE_FILE
+    if "%%a" == "USERCFG_TOOLCHAIN_CMAKE_FILE" set "USERCFG_TOOLCHAIN_CMAKE_FILE=%%b"
+    :: USERCFG_PROJECT_NAME
+    if "%%a" == "USERCFG_PROJECT_NAME" set "USERCFG_PROJECT_NAME=%%b"
+    :: USERCFG_BUILD_CONFIGURATION
+    if "%%a" == "USERCFG_BUILD_CONFIGURATION" set "USERCFG_BUILD_CONFIGURATION=%%b"
+    :: USERCFG_TOOLCHAIN_BUILD_TOOL
+    if "%%a" == "USERCFG_TOOLCHAIN_BUILD_TOOL" set "USERCFG_TOOLCHAIN_BUILD_TOOL=%%b"
 )
 
-:: Debug
-:: echo "-- [INFO] BUILD_CONFIGURATION: %BUILD_CONFIGURATION%"
-echo "-- [INFO] TOOLCHAIN_CMAKE_FILE: %TOOLCHAIN_CMAKE_FILE%"
-
-:: Constrain - Build Configuration
-if "%BUILD_CONFIGURATION%" == "%BUILD_DEBUG%" (
-    echo "-- [INFO] BUILD_CONFIGURATION: %BUILD_CONFIGURATION%"
-) else (
-    if "%BUILD_CONFIGURATION%" == "%BUILD_RELEASE%" (
-        echo "-- [INFO] BUILD_CONFIGURATION: %BUILD_CONFIGURATION%"
-    ) else (
-        echo "-- [FATAL_ERROR] BUILD_CONFIGURATION is not %BUILD_DEBUG% nor %BUILD_RELEASE%"
-        echo "-- [FATAL ERROR] PROCESS TERMINATED!"
-        exit
-    )
-)
-
-:: Constrain - Toolchain Cmake File availability
-if not exist %cd%\%TOOLCHAIN_CMAKE_FILE% (
-    echo "-- [FATAL_ERROR] %TOOLCHAIN_CMAKE_FILE% does not existed."
-    echo "-- [FATAL_ERROR] PROCESS TERMINATED!"
+:: Constrain - USERCFG_TOOLCHAIN_CMAKE_FILE
+if "" == "%USERCFG_TOOLCHAIN_CMAKE_FILE%" (
+    echo -- [FATAL_ERROR] USERCFG_TOOLCHAIN_CMAKE_FILE "(%PROJECTCFG_FILE%)" is not set
     exit
 ) else (
-    echo "-- [INFO] Found %cd%\%TOOLCHAIN_CMAKE_FILE%"
+    echo -- [BATCH_INFO] USERCFG_TOOLCHAIN_CMAKE_FILE: %USERCFG_TOOLCHAIN_CMAKE_FILE%
+)
+
+set "USERCFG_TOOLCHAIN_CMAKE_FILE_PATH=%DEFAULT_TOOLCHAIN_DIR%\%USERCFG_TOOLCHAIN_CMAKE_FILE%"
+if not exist %DEFAULT_TOOLCHAIN_DIR%\%USERCFG_TOOLCHAIN_CMAKE_FILE% (
+    echo -- [FATAL_ERROR] Cannot find %cd%\%USERCFG_TOOLCHAIN_CMAKE_FILE_PATH%
+) else (
+    echo -- [BATCH_INFO] Found %cd%\%USERCFG_TOOLCHAIN_CMAKE_FILE_PATH%
+)
+
+:: Constrain - USERCFG_PROJECT_NAME
+if "" == "%USERCFG_PROJECT_NAME%" (
+    echo -- [FATAL_ERROR] USERCFG_PROJECT_NAME "(%PROJECTCFG_FILE%)" is not set
+    exit
+) else (
+    echo -- [BATCH_INFO] USERCFG_PROJECT_NAME: %USERCFG_PROJECT_NAME%
+)
+
+:: Constrain - USERCFG_BUILD_CONFIGURATION
+if "" == "%USERCFG_BUILD_CONFIGURATION%" (
+    echo -- [FATAL_ERROR] USERCFG_BUILD_CONFIGURATION "(%PROJECTCFG_FILE%)" is not set
+    exit
+) else (
+    echo -- [BATCH_INFO] USERCFG_BUILD_CONFIGURATION: %USERCFG_BUILD_CONFIGURATION%
+)
+
+:: Constrain - USERCFG_TOOLCHAIN_BUILD_TOOL
+if "" == "%USERCFG_TOOLCHAIN_BUILD_TOOL%" (
+    echo -- [FATAL_ERROR] USERCFG_TOOLCHAIN_BUILD_TOOL "(%PROJECTCFG_FILE%)" is not set
+    exit
+) else (
+    echo -- [BATCH_INFO] USERCFG_TOOLCHAIN_BUILD_TOOL: %USERCFG_TOOLCHAIN_BUILD_TOOL%
 )
 
 
@@ -139,51 +240,21 @@ if not exist %cd%\%TOOLCHAIN_CMAKE_FILE% (
 :: GENERATING PROCESS WITH CMAKE
 :: ======================================================================================
 set "GEN_ARGS=-S ."
-set "GEN_ARGS=%GEN_ARGS% -B %BUILD_DIR%"
-set "GEN_ARGS=%GEN_ARGS% -G %BUILD_TOOL%"
-set "GEN_ARGS=%GEN_ARGS% --toolchain %TOOLCHAIN_CMAKE_FILE%"
+set "GEN_ARGS=%GEN_ARGS% -B %DEFAULT_BUILD_DIR%"
+set "GEN_ARGS=%GEN_ARGS% -G %USERCFG_TOOLCHAIN_BUILD_TOOL%"
+set "GEN_ARGS=%GEN_ARGS% -D CMAKE_BUILD_TYPE=%USERCFG_BUILD_CONFIGURATION%"
+set "GEN_ARGS=%GEN_ARGS% -D PROJECT_NAME=%USERCFG_PROJECT_NAME%"
+set "GEN_ARGS=%GEN_ARGS% -D DEFAULT_INSTALL_BINARY_DIR=%DEFAULT_INSTALL_BINARY_DIR%"
+set "GEN_ARGS=%GEN_ARGS% -D DEFAULT_INSTALL_LIBRARY_DIR=%DEFAULT_INSTALL_LIBRARY_DIR%"
+set "GEN_ARGS=%GEN_ARGS% -D DEFAULT_INSTALL_INCLUDE_DIR=%DEFAULT_INSTALL_INCLUDE_DIR%"
+set "GEN_ARGS=%GEN_ARGS% --toolchain %USERCFG_TOOLCHAIN_CMAKE_FILE_PATH%"
+set "GEN_ARGS=%GEN_ARGS% --graphviz=%DEFAULT_DIAGRAM_DIR%/%USERCFG_PROJECT_NAME%_dia.dot"
 set "GEN_ARGS=%GEN_ARGS% -Wdev"
 set "GEN_ARGS=%GEN_ARGS% -Werror=dev"
 set "GEN_ARGS=%GEN_ARGS% -Wdeprecated"
 set "GEN_ARGS=%GEN_ARGS% -Werror=deprecated"
 set "GEN_ARGS=%GEN_ARGS% --fresh"
-set "GEN_ARGS=%GEN_ARGS% --graphviz=%DIAGRAM_FILE_URI%"
-set "GEN_ARGS=%GEN_ARGS% -D CMAKE_BUILD_TYPE=%BUILD_CONFIGURATION%"
 
-echo "-- [INFO] CMake Generation Flags: %GEN_ARGS%"
+echo -- [BATCH_INFO] CMake Generation Flags: %GEN_ARGS%
 
 cmake %GEN_ARGS%
-
-
-:: ======================================================================================
-:: BUILDING PROCESS WITH CMAKE
-:: ======================================================================================
-set "BUILD_ARGS=--build %BUILD_DIR%"
-set "BUILD_ARGS=%BUILD_ARGS% --parallel"
-set "BUILD_ARGS=%BUILD_ARGS% --clean-first"
-set "BUILD_ARGS=%BUILD_ARGS% --verbose"
-
-echo "-- [INFO] CMake Building Flags: %BUILD_ARGS%"
-
-cmake %BUILD_ARGS%
-
-
-:: ======================================================================================
-:: DEFAULT INSTALLATION
-:: ======================================================================================
-set "INSTALL_ARGS=--install %BUILD_DIR%"
-set "INSTALL_ARGS=%INSTALL_ARGS% --prefix %INSTALL_DIR%/%BUILD_CONFIGURATION%"
-set "INSTALL_ARGS=%INSTALL_ARGS% --verbose"
-
-if "%BUILD_CONFIGURATION%" == "%BUILD_RELEASE%" (
-    set "INSTALL_ARGS=%INSTALL_ARGS% --strip"
-)
-
-echo "-- [INFO] CMake Installation Flags: %INSTALL_ARGS%"
-
-cmake %INSTALL_ARGS%
-
-:: ======================================================================================
-:: CONVERT .DOT -> .JPG
-:: ======================================================================================
-dot -Tjpg %DIAGRAM_FILE_URI% -O
