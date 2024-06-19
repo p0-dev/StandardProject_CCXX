@@ -1,8 +1,6 @@
-
-
-# ---------------------------------------------------------------------------------------
+# =======================================================================================
 # COPY RIGHT / LEFT
-# ---------------------------------------------------------------------------------------
+# =======================================================================================
 # (C) 2024 Hardware And Software Solution (HASS)
 # (C) 2024 Thanh Tran / Nhuan Tran
 # (C) 2024 Khai Tran / Vy Tran
@@ -21,13 +19,8 @@
 
 
 # =======================================================================================
-# INTENTIONAL LEAVE BLANK
-# =======================================================================================
-
-
-# ---------------------------------------------------------------------------------------
 # FILE INFORMATION
-# ---------------------------------------------------------------------------------------
+# =======================================================================================
 # NAME              | CMakeLists.txt (Codebase)
 # ---------------------------------------------------------------------------------------
 # LOCATION          | Codebase/CMakeLists.txt
@@ -39,31 +32,38 @@
 
 
 # =======================================================================================
+# MAIN SOURCE FILE
+# =======================================================================================
+set(C_MAIN ${CMAKE_CURRENT_SOURCE_DIR}/Source/Main.c)
+
+message("-- [INFO] Main Source File: ${C_MAIN}")
+
+
+# =======================================================================================
 # HEADER DIRECTORY SPECIFICATION
 # =======================================================================================
+
+# Specification
 set(H_DIR ${CMAKE_CURRENT_SOURCE_DIR}/Include)
 
-message("-- [INFO] Header directory = ${H_DIR}")
+message("-- [INFO] Directory Of Header: ${H_DIR}")
+
+# Installation
+install(DIRECTORY ${H_DIR}/ DESTINATION ${INSTALL_INC_DIR})
 
 
 # =======================================================================================
 # MODULE DIRECTORY
 # =======================================================================================
 set(DummyModule1_DIR ${CMAKE_CURRENT_SOURCE_DIR}/Source/DummyModule1)
+set(DummyModule1_TARGET DummyModule1)
 
-message("-- [INFO] <DummyModule1> directory = ${DummyModule1_DIR}")
-
-
-# =======================================================================================
-# MAIN FILE
-# =======================================================================================
-set(C_MAIN ${CMAKE_CURRENT_SOURCE_DIR}/Source/Main.c)
-
-message("-- [INFO] Main file (including MAIN function) = ${C_MAIN}")
+message("-- [INFO] Directory Of Module:s<DummyModule1>= ${DummyModule1_DIR}")
+message("-- [INFO] Target Of Module:s<DummyModule1>= ${DummyModule1_TARGET}")
 
 
 # =======================================================================================
-# SUB_DIRECTORY
+# SUB DIRECTORY
 # =======================================================================================
 add_subdirectory(${DummyModule1_DIR})
 
@@ -71,24 +71,28 @@ add_subdirectory(${DummyModule1_DIR})
 # =======================================================================================
 # TARGET - EXECUTION
 # =======================================================================================
-## Execution Target - Main File
+
+# Target: Execution - Main File
 add_executable(${EXE_TARGET} ${C_MAIN})
 
-## Execution Target - Include Directory
+# Target: Execution - Include Directory
 target_include_directories(${EXE_TARGET} PUBLIC ${H_DIR})
 
-## Execution Target - Linking Internal Libraries
-target_link_libraries(${EXE_TARGET} PUBLIC LibDummyModule1)
+# Target: Execution - Linking Internal Libraries
+target_link_libraries(${EXE_TARGET} PUBLIC ${DummyModule1_TARGET})
 
-## Execution Target - Compile Flags
+# Target: Execution - Compile Flags
 target_compile_options(${EXE_TARGET} PUBLIC
-    $<$<CONFIG:Debug>:${COMPILATION_C_DEBUG_FLAGS}>
-    $<$<CONFIG:Release>:${COMPILATION_C_RELEASE_FLAGS}>
+    $<$<CONFIG:${BUILD_DEBUG}>:${COMPILE_DEBUG_FLAG}>
+    $<$<CONFIG:${BUILD_RELEASE}>:${COMPILE_RELEASE_FLAG}>
 )
 
-## Execution Target - Linking Flags
+# Target: Execution - Linking Flags
 target_link_options(${EXE_TARGET} PUBLIC
-    $<$<CONFIG:Debug>:${LINKING_C_DEBUG_FLAGS}>
-    $<$<CONFIG:Release>:${LINKING_C_RELEASE_FLAGS}>
+    $<$<CONFIG:${BUILD_DEBUG}>:${LINKING_DEBUG_FLAG}>
+    $<$<CONFIG:${BUILD_RELEASE}>:${LINKING_RELEASE_FLAG}>
 )
+
+# Target: Execution - Installation
+install(TARGETS ${EXE_TARGET} DESTINATION ${INSTALL_BIN_DIR})
 

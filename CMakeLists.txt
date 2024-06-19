@@ -174,8 +174,12 @@
 # =======================================================================================
 # PROJECT CONSTANTS / MACROS
 # =======================================================================================
-set(BUILD_RELEASE   "Release")
-set(BUILD_DEBUG     "Debug")
+set(BUILD_RELEASE       "Release")
+set(BUILD_DEBUG         "Debug")
+set(INSTALL_BIN_DIR     "Bin")
+set(INSTALL_LIB_DIR     "Lib")
+set(INSTALL_INC_DIR     "Include")
+set(INSTALL_CMAKE_DIR   "CMake")
 
 
 # =======================================================================================

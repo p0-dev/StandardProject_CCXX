@@ -1,8 +1,6 @@
-
-
-# ---------------------------------------------------------------------------------------
+# =======================================================================================
 # COPY RIGHT / LEFT
-# ---------------------------------------------------------------------------------------
+# =======================================================================================
 # (C) 2024 Hardware And Software Solution (HASS)
 # (C) 2024 Thanh Tran / Nhuan Tran
 # (C) 2024 Khai Tran / Vy Tran
@@ -21,13 +19,8 @@
 
 
 # =======================================================================================
-# INTENTIONAL LEAVE BLANK
-# =======================================================================================
-
-
-# ---------------------------------------------------------------------------------------
 # FILE INFORMATION
-# ---------------------------------------------------------------------------------------
+# =======================================================================================
 # NAME              | CMakeLists.txt (DummyModule1)
 # ---------------------------------------------------------------------------------------
 # LOCATION          | Root/Codebase/Source/DummyModule1/CMakeLists.txt
@@ -37,9 +30,9 @@
 
 
 # =======================================================================================
-# CONSTANT
+# CONSTANTS
 # =======================================================================================
-set(TARGET LibDummyModule1)
+set(TARGET DummyModule1)
 
 message("-- [INFO] Target: ${TARGET}")
 
@@ -49,7 +42,7 @@ message("-- [INFO] Target: ${TARGET}")
 # =======================================================================================
 set(TARGET_SRC DummyModule1.c)
 
-message("-- [INFO] Source: ${TARGET_SRC}")
+message("-- [INFO] ${TARGET}'s Source: ${TARGET_SRC}")
 
 
 # =======================================================================================
@@ -57,14 +50,24 @@ message("-- [INFO] Source: ${TARGET_SRC}")
 # =======================================================================================
 set(TARGET_HEADER ${H_DIR})
 
-message("-- [INFO] Header: ${TARGET_HEADER}")
+message("-- [INFO] ${TARGET}'s Header: ${TARGET_HEADER}")
 
 
 # =======================================================================================
 # TARGET - DUMMY MODULE 1
 # =======================================================================================
-## Main Target
+
+# Main Target
 add_library(${TARGET} STATIC ${TARGET_SRC})
 
-## Include Directory
+# Include Directory
 target_include_directories(${TARGET} PUBLIC ${TARGET_HEADER})
+
+# Compilation Flags
+target_compile_options(${TARGET} PUBLIC
+    $<$<CONFIG:${BUILD_DEBUG}>:${COMPILE_DEBUG_FLAG}>
+    $<$<CONFIG:${BUILD_RELEASE}>:${COMPILE_RELEASE_FLAG}>
+)
+
+# Installation
+install(TARGETS ${TARGET} DESTINATION ${INSTALL_LIB_DIR})

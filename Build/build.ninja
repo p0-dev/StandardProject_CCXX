@@ -64,6 +64,48 @@ build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
 
 build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 
+
+#############################################
+# Utility command for list_install_components
+
+build list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build CMakeFiles/install.util: CUSTOM_COMMAND all
+  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D D:\Workspace\StandardProject_CCXX\Build && "C:\Program Files\CMake\bin\cmake.exe" -P cmake_install.cmake"
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build install: phony CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build CMakeFiles/install/local.util: CUSTOM_COMMAND all
+  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D D:\Workspace\StandardProject_CCXX\Build && "C:\Program Files\CMake\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build install/local: phony CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build CMakeFiles/install/strip.util: CUSTOM_COMMAND all
+  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D D:\Workspace\StandardProject_CCXX\Build && "C:\Program Files\CMake\bin\cmake.exe" -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake"
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build install/strip: phony CMakeFiles/install/strip.util
+
 # =============================================================================
 # Write statements declared in CMakeLists.txt:
 # D:/Workspace/StandardProject_CCXX/CMakeLists.txt
@@ -76,11 +118,11 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 #############################################
 # Order-only phony target for StandardProject_exe
 
-build cmake_object_order_depends_target_StandardProject_exe: phony || cmake_object_order_depends_target_LibDummyModule1
+build cmake_object_order_depends_target_StandardProject_exe: phony || cmake_object_order_depends_target_DummyModule1
 
 build Codebase/CMakeFiles/StandardProject_exe.dir/Source/Main.c.obj: C_COMPILER__StandardProject_exe_unscanned_Debug D$:/Workspace/StandardProject_CCXX/Codebase/Source/Main.c || cmake_object_order_depends_target_StandardProject_exe
   DEP_FILE = Codebase\CMakeFiles\StandardProject_exe.dir\Source\Main.c.obj.d
-  FLAGS = -g
+  FLAGS = -g -Wall -DCOMPILE_DEBUG_FLAG1=1
   INCLUDES = -ID:/Workspace/StandardProject_CCXX/Codebase/Include
   OBJECT_DIR = Codebase\CMakeFiles\StandardProject_exe.dir
   OBJECT_FILE_DIR = Codebase\CMakeFiles\StandardProject_exe.dir\Source
@@ -95,9 +137,10 @@ build Codebase/CMakeFiles/StandardProject_exe.dir/Source/Main.c.obj: C_COMPILER_
 #############################################
 # Link the executable Codebase\StandardProject_exe.exe
 
-build Codebase/StandardProject_exe.exe: C_EXECUTABLE_LINKER__StandardProject_exe_Debug Codebase/CMakeFiles/StandardProject_exe.dir/Source/Main.c.obj | Codebase/Source/DummyModule1/libLibDummyModule1.a || Codebase/Source/DummyModule1/libLibDummyModule1.a
+build Codebase/StandardProject_exe.exe: C_EXECUTABLE_LINKER__StandardProject_exe_Debug Codebase/CMakeFiles/StandardProject_exe.dir/Source/Main.c.obj | Codebase/Source/DummyModule1/libDummyModule1.a || Codebase/Source/DummyModule1/libDummyModule1.a
   FLAGS = -g
-  LINK_LIBRARIES = Codebase/Source/DummyModule1/libLibDummyModule1.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  LINK_FLAGS = -Wall -DLINKING_DEBUG_FLAG=1
+  LINK_LIBRARIES = Codebase/Source/DummyModule1/libDummyModule1.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = Codebase\CMakeFiles\StandardProject_exe.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
@@ -130,45 +173,87 @@ build Codebase/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
 
 build Codebase/rebuild_cache: phony Codebase/CMakeFiles/rebuild_cache.util
 
+
+#############################################
+# Utility command for list_install_components
+
+build Codebase/list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build Codebase/CMakeFiles/install.util: CUSTOM_COMMAND Codebase/all
+  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D D:\Workspace\StandardProject_CCXX\Build\Codebase && "C:\Program Files\CMake\bin\cmake.exe" -P cmake_install.cmake"
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build Codebase/install: phony Codebase/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build Codebase/CMakeFiles/install/local.util: CUSTOM_COMMAND Codebase/all
+  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D D:\Workspace\StandardProject_CCXX\Build\Codebase && "C:\Program Files\CMake\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build Codebase/install/local: phony Codebase/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build Codebase/CMakeFiles/install/strip.util: CUSTOM_COMMAND Codebase/all
+  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D D:\Workspace\StandardProject_CCXX\Build\Codebase && "C:\Program Files\CMake\bin\cmake.exe" -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake"
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build Codebase/install/strip: phony Codebase/CMakeFiles/install/strip.util
+
 # =============================================================================
 # Write statements declared in CMakeLists.txt:
 # D:/Workspace/StandardProject_CCXX/Codebase/CMakeLists.txt
 # =============================================================================
 
 # =============================================================================
-# Object build statements for STATIC_LIBRARY target LibDummyModule1
+# Object build statements for STATIC_LIBRARY target DummyModule1
 
 
 #############################################
-# Order-only phony target for LibDummyModule1
+# Order-only phony target for DummyModule1
 
-build cmake_object_order_depends_target_LibDummyModule1: phony || .
+build cmake_object_order_depends_target_DummyModule1: phony || .
 
-build Codebase/Source/DummyModule1/CMakeFiles/LibDummyModule1.dir/DummyModule1.c.obj: C_COMPILER__LibDummyModule1_unscanned_Debug D$:/Workspace/StandardProject_CCXX/Codebase/Source/DummyModule1/DummyModule1.c || cmake_object_order_depends_target_LibDummyModule1
-  DEP_FILE = Codebase\Source\DummyModule1\CMakeFiles\LibDummyModule1.dir\DummyModule1.c.obj.d
-  FLAGS = -g
+build Codebase/Source/DummyModule1/CMakeFiles/DummyModule1.dir/DummyModule1.c.obj: C_COMPILER__DummyModule1_unscanned_Debug D$:/Workspace/StandardProject_CCXX/Codebase/Source/DummyModule1/DummyModule1.c || cmake_object_order_depends_target_DummyModule1
+  DEP_FILE = Codebase\Source\DummyModule1\CMakeFiles\DummyModule1.dir\DummyModule1.c.obj.d
+  FLAGS = -g -Wall -DCOMPILE_DEBUG_FLAG1=1
   INCLUDES = -ID:/Workspace/StandardProject_CCXX/Codebase/Include
-  OBJECT_DIR = Codebase\Source\DummyModule1\CMakeFiles\LibDummyModule1.dir
-  OBJECT_FILE_DIR = Codebase\Source\DummyModule1\CMakeFiles\LibDummyModule1.dir
-  TARGET_COMPILE_PDB = Codebase\Source\DummyModule1\CMakeFiles\LibDummyModule1.dir\LibDummyModule1.pdb
-  TARGET_PDB = Codebase\Source\DummyModule1\libLibDummyModule1.pdb
+  OBJECT_DIR = Codebase\Source\DummyModule1\CMakeFiles\DummyModule1.dir
+  OBJECT_FILE_DIR = Codebase\Source\DummyModule1\CMakeFiles\DummyModule1.dir
+  TARGET_COMPILE_PDB = Codebase\Source\DummyModule1\CMakeFiles\DummyModule1.dir\DummyModule1.pdb
+  TARGET_PDB = Codebase\Source\DummyModule1\libDummyModule1.pdb
 
 
 # =============================================================================
-# Link build statements for STATIC_LIBRARY target LibDummyModule1
+# Link build statements for STATIC_LIBRARY target DummyModule1
 
 
 #############################################
-# Link the static library Codebase\Source\DummyModule1\libLibDummyModule1.a
+# Link the static library Codebase\Source\DummyModule1\libDummyModule1.a
 
-build Codebase/Source/DummyModule1/libLibDummyModule1.a: C_STATIC_LIBRARY_LINKER__LibDummyModule1_Debug Codebase/Source/DummyModule1/CMakeFiles/LibDummyModule1.dir/DummyModule1.c.obj
+build Codebase/Source/DummyModule1/libDummyModule1.a: C_STATIC_LIBRARY_LINKER__DummyModule1_Debug Codebase/Source/DummyModule1/CMakeFiles/DummyModule1.dir/DummyModule1.c.obj
   LANGUAGE_COMPILE_FLAGS = -g
-  OBJECT_DIR = Codebase\Source\DummyModule1\CMakeFiles\LibDummyModule1.dir
+  OBJECT_DIR = Codebase\Source\DummyModule1\CMakeFiles\DummyModule1.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
-  TARGET_COMPILE_PDB = Codebase\Source\DummyModule1\CMakeFiles\LibDummyModule1.dir\LibDummyModule1.pdb
-  TARGET_FILE = Codebase\Source\DummyModule1\libLibDummyModule1.a
-  TARGET_PDB = Codebase\Source\DummyModule1\libLibDummyModule1.pdb
+  TARGET_COMPILE_PDB = Codebase\Source\DummyModule1\CMakeFiles\DummyModule1.dir\DummyModule1.pdb
+  TARGET_FILE = Codebase\Source\DummyModule1\libDummyModule1.a
+  TARGET_PDB = Codebase\Source\DummyModule1\libDummyModule1.pdb
 
 
 #############################################
@@ -194,16 +279,58 @@ build Codebase/Source/DummyModule1/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
 
 build Codebase/Source/DummyModule1/rebuild_cache: phony Codebase/Source/DummyModule1/CMakeFiles/rebuild_cache.util
 
+
+#############################################
+# Utility command for list_install_components
+
+build Codebase/Source/DummyModule1/list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build Codebase/Source/DummyModule1/CMakeFiles/install.util: CUSTOM_COMMAND Codebase/Source/DummyModule1/all
+  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D D:\Workspace\StandardProject_CCXX\Build\Codebase\Source\DummyModule1 && "C:\Program Files\CMake\bin\cmake.exe" -P cmake_install.cmake"
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build Codebase/Source/DummyModule1/install: phony Codebase/Source/DummyModule1/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build Codebase/Source/DummyModule1/CMakeFiles/install/local.util: CUSTOM_COMMAND Codebase/Source/DummyModule1/all
+  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D D:\Workspace\StandardProject_CCXX\Build\Codebase\Source\DummyModule1 && "C:\Program Files\CMake\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build Codebase/Source/DummyModule1/install/local: phony Codebase/Source/DummyModule1/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build Codebase/Source/DummyModule1/CMakeFiles/install/strip.util: CUSTOM_COMMAND Codebase/Source/DummyModule1/all
+  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D D:\Workspace\StandardProject_CCXX\Build\Codebase\Source\DummyModule1 && "C:\Program Files\CMake\bin\cmake.exe" -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake"
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build Codebase/Source/DummyModule1/install/strip: phony Codebase/Source/DummyModule1/CMakeFiles/install/strip.util
+
 # =============================================================================
 # Target aliases.
 
-build LibDummyModule1: phony Codebase/Source/DummyModule1/libLibDummyModule1.a
+build DummyModule1: phony Codebase/Source/DummyModule1/libDummyModule1.a
 
 build StandardProject_exe: phony Codebase/StandardProject_exe.exe
 
 build StandardProject_exe.exe: phony Codebase/StandardProject_exe.exe
 
-build libLibDummyModule1.a: phony Codebase/Source/DummyModule1/libLibDummyModule1.a
+build libDummyModule1.a: phony Codebase/Source/DummyModule1/libDummyModule1.a
 
 # =============================================================================
 # Folder targets.
@@ -227,7 +354,7 @@ build Codebase/all: phony Codebase/StandardProject_exe.exe Codebase/Source/Dummy
 #############################################
 # Folder: D:/Workspace/StandardProject_CCXX/Build/Codebase/Source/DummyModule1
 
-build Codebase/Source/DummyModule1/all: phony Codebase/Source/DummyModule1/libLibDummyModule1.a
+build Codebase/Source/DummyModule1/all: phony Codebase/Source/DummyModule1/libDummyModule1.a
 
 # =============================================================================
 # Built-in targets

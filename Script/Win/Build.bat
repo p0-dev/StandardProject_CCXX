@@ -55,6 +55,7 @@ set "BUILD_DIR=Build"
 set "BUILD_TOOL=Ninja"
 set "DIAGRAM_FILE=Overview.dot"
 set "DIAGRAM_FILE_URI=Diagram\Overview.dot"
+set "INSTALL_DIR=Install"
 
 
 :: ======================================================================================
@@ -119,6 +120,7 @@ if "%BUILD_CONFIGURATION%" == "%BUILD_DEBUG%" (
         echo "-- [INFO] BUILD_CONFIGURATION: %BUILD_CONFIGURATION%"
     ) else (
         echo "-- [FATAL_ERROR] BUILD_CONFIGURATION is not %BUILD_DEBUG% nor %BUILD_RELEASE%"
+        exit
     )
 )
 
@@ -147,6 +149,8 @@ set "GEN_ARGS=%GEN_ARGS% --fresh"
 set "GEN_ARGS=%GEN_ARGS% --graphviz=%DIAGRAM_FILE_URI%"
 set "GEN_ARGS=%GEN_ARGS% -D CMAKE_BUILD_TYPE=%BUILD_CONFIGURATION%"
 
+echo "-- [INFO] CMake Generation Flags: %GEN_ARGS%"
+
 cmake %GEN_ARGS%
 
 
@@ -158,8 +162,25 @@ set "BUILD_ARGS=%BUILD_ARGS% --parallel"
 set "BUILD_ARGS=%BUILD_ARGS% --clean-first"
 set "BUILD_ARGS=%BUILD_ARGS% --verbose"
 
+echo "-- [INFO] CMake Building Flags: %BUILD_ARGS%"
+
 cmake %BUILD_ARGS%
 
+
+:: ======================================================================================
+:: DEFAULT INSTALLATION
+:: ======================================================================================
+set "INSTALL_ARGS=--install %BUILD_DIR%"
+set "INSTALL_ARGS=%INSTALL_ARGS% --prefix %INSTALL_DIR%/%BUILD_CONFIGURATION%"
+set "INSTALL_ARGS=%INSTALL_ARGS% --verbose"
+
+if "%BUILD_CONFIGURATION%" == "%BUILD_RELEASE%" (
+    set "INSTALL_ARGS=%INSTALL_ARGS% --strip"
+)
+
+echo "-- [INFO] CMake Installation Flags: %INSTALL_ARGS%"
+
+cmake %INSTALL_ARGS%
 
 :: ======================================================================================
 :: CONVERT .DOT -> .JPG

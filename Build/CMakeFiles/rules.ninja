@@ -41,7 +41,7 @@ rule C_EXECUTABLE_LINKER__StandardProject_exe_Debug
 #############################################
 # Rule for compiling C files.
 
-rule C_COMPILER__LibDummyModule1_unscanned_Debug
+rule C_COMPILER__DummyModule1_unscanned_Debug
   depfile = $DEP_FILE
   deps = gcc
   command = ${LAUNCHER}${CODE_CHECK}C:\mingw64\bin\x86_64-w64-mingw32-gcc.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -51,7 +51,7 @@ rule C_COMPILER__LibDummyModule1_unscanned_Debug
 #############################################
 # Rule for linking C static library.
 
-rule C_STATIC_LIBRARY_LINKER__LibDummyModule1_Debug
+rule C_STATIC_LIBRARY_LINKER__DummyModule1_Debug
   command = C:\Windows\system32\cmd.exe /C "$PRE_LINK && "C:\Program Files\CMake\bin\cmake.exe" -E rm -f $TARGET_FILE && C:\mingw64\bin\x86_64-w64-mingw32-gcc-ar.exe qc $TARGET_FILE $LINK_FLAGS $in && C:\mingw64\bin\ranlib.exe $TARGET_FILE && $POST_BUILD"
   description = Linking C static library $TARGET_FILE
   restat = $RESTAT

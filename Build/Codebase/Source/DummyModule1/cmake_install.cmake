@@ -37,3 +37,11 @@ if(NOT DEFINED CMAKE_OBJDUMP)
   set(CMAKE_OBJDUMP "C:/mingw64/bin/objdump.exe")
 endif()
 
+if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/Lib" TYPE STATIC_LIBRARY FILES "D:/Workspace/StandardProject_CCXX/Build/Codebase/Source/DummyModule1/libDummyModule1.a")
+endif()
+
+if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
+  include("D:/Workspace/StandardProject_CCXX/Build/Codebase/Source/DummyModule1/CMakeFiles/DummyModule1.dir/install-cxx-module-bmi-Debug.cmake" OPTIONAL)
+endif()
+
