@@ -1,3 +1,0 @@
-D:\Workspace\MotherFuck/Include/StandardProject/DummyModule1/DummyModule1.h
-D:\Workspace\MotherFuck/Lib/libDummyModule1.a
-D:\Workspace\MotherFuck/Bin/StandardProject_exe.exe
