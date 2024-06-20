@@ -174,11 +174,29 @@
 # =======================================================================================
 # PROJECT VARRIABLES
 # =======================================================================================
+message("\n")
+
+message("-- [INFO] CMake Configuration Inputs")
+message("-- [INFO] --------------------------")
+
+message("-- [INFO] USERCFG_TOOLCHAIN_BUILD_TOOL: ${USERCFG_TOOLCHAIN_BUILD_TOOL}")
+
 message("-- [INFO] DEFAULT_INSTALL_BINARY_DIR: ${DEFAULT_INSTALL_BINARY_DIR}")
 message("-- [INFO] DEFAULT_INSTALL_LIBRARY_DIR: ${DEFAULT_INSTALL_LIBRARY_DIR}")
 message("-- [INFO] DEFAULT_INSTALL_INCLUDE_DIR: ${DEFAULT_INSTALL_INCLUDE_DIR}")
+message("-- [INFO] DEFAULT_CODEBASE_DIR: ${DEFAULT_CODEBASE_DIR}")
+message("-- [INFO] DEFAULT_CMAKE_SCRIPT_FILE: ${DEFAULT_CMAKE_SCRIPT_FILE}")
+message("-- [INFO] DEFAULT_SOURCE_DIR: ${DEFAULT_SOURCE_DIR}")
+message("-- [INFO] DEFAULT_INCLUDE_DIR: ${DEFAULT_INCLUDE_DIR}")
+message("-- [INFO] DEFAULT_INSTALL_DIR: ${DEFAULT_INSTALL_DIR}")
+
+message("-- [INFO] PROJECT_NAME: ${PROJECT_NAME}")
+message("-- [INFO] CMAKE_BUILD_TYPE: ${CMAKE_BUILD_TYPE}")
+
+message("\n")
 
 
+# message(FATAL_ERROR "")
 # =======================================================================================
 # GLOBAL FLAGS FOR CMAKE TO PROCESS
 # =======================================================================================
@@ -191,97 +209,154 @@ set(FLAG_OBJCOPY_AVAILABLE  0)
 # =======================================================================================
 cmake_minimum_required(VERSION 3.29)
 project(${PROJECT_NAME})
-
+message("\n")
+message("-- [INFO] Project Configurations")
+message("-- [INFO] ----------------------")
 message("-- [INFO] CMAKE_MINIMUM_REQUIRED_VERSION = ${CMAKE_MINIMUM_REQUIRED_VERSION}") 
-message("-- [INFO] PROJECT_NAME = ${PROJECT_NAME}")
+message("\n")
 
 
+# message(FATAL_ERROR "")
 # =======================================================================================
 # PROJECT MAIN TARGETS DEFINITION
 # =======================================================================================
 set(EXE_TARGET "${PROJECT_NAME}_exe")
-set(CMAKE_TARGET "${PROJECT_NAME}_cmake")
 
-message("-- [INFO] Available Main Targets:")
+message("-- [INFO] Main Project's Target")
+message("-- [INFO] ---------------------")
 message("-- [INFO] - ${EXE_TARGET}")
-message("-- [INFO] - ${CMAKE_TARGET}")
+message("\n")
 
 
+# message(FATAL_ERROR "")
 # =======================================================================================
 # GENERAL CONSTRAINS
 # =======================================================================================
+message("-- [INFO] General Constrains")
+message("-- [INFO] ------------------")
 
-# Contrains 1 - Required - Checking for Codebase/CMakeLists.txt availability
-if(NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/Codebase/CMakeLists.txt)
-    message("-- [FATAL_ERROR] PROCESS TERMINATED")
-    message(FATAL_ERROR "-- [FATAL_ERROR] Not found Codebase/CMakeLists.txt")
-endif()
-
-# Contrains 2 - Required - Checking for build type
-if("${CMAKE_BUILD_TYPE}" STREQUAL "${BUILD_DEBUG}")
-elseif("${CMAKE_BUILD_TYPE}" STREQUAL "${BUILD_RELEASE}")
+# Constrains - Required - Check for DEFAULT_INSTALL_DIR
+if(NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${DEFAULT_INSTALL_DIR})
+    message(FATAL_ERROR "-- [FATAL_ERROR] Not found ${DEFAULT_INSTALL_DIR}")
+elseif(NOT IS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${DEFAULT_INSTALL_DIR})
+    message(FATAL_ERROR "-- [FATAL_ERROR] Not found ${DEFAULT_INSTALL_DIR}")
 else()
-    message("-- [FATAL_ERROR] PROCESS TERMINATED!")
-    message(FATAL_ERROR "-- [FATAL_ERROR] BUILD_CONFIGURATION is not corrected! 
-                        Debug or Release.")
+    message("-- [INFO] Found ${DEFAULT_INSTALL_DIR}")
 endif()
 
-message("-- [INFO] BUILD_CONFIGURATION: ${CMAKE_BUILD_TYPE}")
+# Constrains - Required - Check for DEFAULT_CODEBASE_DIR
+if(NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${DEFAULT_CODEBASE_DIR})
+    message(FATAL_ERROR "-- [FATAL_ERROR] Not found ${DEFAULT_CODEBASE_DIR}")
+elseif(NOT IS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${DEFAULT_CODEBASE_DIR})
+    message(FATAL_ERROR "-- [FATAL_ERROR] Not found ${DEFAULT_CODEBASE_DIR}")
+else()
+    message("-- [INFO] Found ${DEFAULT_CODEBASE_DIR}")
+endif()
+
+# Constrains - Required - Check for DEFAULT_CODEBASE_DIR/DEFAULT_INCLUDE_DIR
+if(NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${DEFAULT_CODEBASE_DIR}/${DEFAULT_INCLUDE_DIR})
+    message(FATAL_ERROR "-- [FATAL_ERROR] Not found ${DEFAULT_CODEBASE_DIR}/${DEFAULT_INCLUDE_DIR}")
+elseif(NOT IS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${DEFAULT_CODEBASE_DIR}/${DEFAULT_INCLUDE_DIR})
+    message(FATAL_ERROR "-- [FATAL_ERROR] Not found ${DEFAULT_CODEBASE_DIR}/${DEFAULT_INCLUDE_DIR}")
+else()
+    message("-- [INFO] Found ${DEFAULT_CODEBASE_DIR}/${DEFAULT_INCLUDE_DIR}")
+endif()
+
+# Constrains - Required - Check for DEFAULT_CODEBASE_DIR/DEFAULT_SOURCE_DIR
+if(NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${DEFAULT_CODEBASE_DIR}/${DEFAULT_SOURCE_DIR})
+    message(FATAL_ERROR "-- [FATAL_ERROR] Not found ${DEFAULT_CODEBASE_DIR}/${DEFAULT_SOURCE_DIR}")
+elseif(NOT IS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${DEFAULT_CODEBASE_DIR}/${DEFAULT_SOURCE_DIR})
+    message(FATAL_ERROR "-- [FATAL_ERROR] Not found ${DEFAULT_CODEBASE_DIR}/${DEFAULT_SOURCE_DIR}")
+else()
+    message("-- [INFO] Found ${DEFAULT_CODEBASE_DIR}/${DEFAULT_SOURCE_DIR}")
+endif()
+
+# Contrains 1 - Required - Checking for ${DEFAULT_CODEBASE_DIR}/${DEFAULT_CMAKE_SCRIPT_FILE} availability
+if(NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${DEFAULT_CODEBASE_DIR}/${DEFAULT_CMAKE_SCRIPT_FILE})
+    message(FATAL_ERROR "-- [FATAL_ERROR] Not found ${DEFAULT_CODEBASE_DIR}/${DEFAULT_CMAKE_SCRIPT_FILE}")
+else()
+    message("-- [INFO] Found ${DEFAULT_CODEBASE_DIR}/${DEFAULT_CMAKE_SCRIPT_FILE}")
+endif()
 
 # Constrain 3 - Required - Checking for GCC compiler
 find_program(MINGW64_GCC_EXECUTION ${USERCFG_C_COMPILER_EXE})
 if (NOT MINGW64_GCC_EXECUTION)
-    message("-- [FATAL_ERROR] PROCESS TERMINATED!")
-    message(FATAL_ERROR "[FATAL_ERROR] USERCFG_C_COMPILER_EXE not found!")
+    message(FATAL_ERROR "[FATAL_ERROR] Cannot find USERCFG_C_COMPILER_EXE")
+else()
+    message("-- [INFO] Found USERCFG_C_COMPILER_EXE: ${USERCFG_C_COMPILER_EXE}")
 endif ()
 
 # Constrain 4 - Required - Checking for G++ compiler
 find_program(MINGW64_GPP_EXECUTION ${USERCFG_CXX_COMPILER_EXE})
 if (NOT MINGW64_GPP_EXECUTION)
-    message("-- [ERROR] PROCESS TERMINATED!")
-    message(FATAL_ERROR "[ERROR] USERCFG_CXX_COMPILER_EXE not found!")
+    message(FATAL_ERROR "[FATAL_ERROR] Cannot find USERCFG_CXX_COMPILER_EXE")
+else()
+    message("-- [INFO] Found USERCFG_CXX_COMPILER_EXE: ${USERCFG_CXX_COMPILER_EXE}")
 endif ()
 
 # Constrain 5 - Optional - Checking for AR
 find_program(MINGW64_AR_EXECUTION ${USERCFG_AR_EXE})
 if(NOT MINGW64_AR_EXECUTION)
-    message("-- [WARNING] USERCFG_AR_EXE not found!")
+    message("-- [WARNING] Cannot find USERCFG_AR_EXE")
 else()
+    message("-- [INFO] Found USERCFG_AR_EXE: ${USERCFG_AR_EXE}")
     set(FLAG_AR_AVAILABLE 1)
 endif()
 
 # Constrain 6 - Optional - Checking for Objcopy
 find_program(MINGW64_OBJCOPY_EXECUTION ${USERCFG_OBJCOPY_EXE})
 if(NOT MINGW64_OBJCOPY_EXECUTION)
-    message("-- [WARNING] USERCFG_AR_EXE not found!")
+    message("-- [WARNING] Cannot find USERCFG_OBJCOPY_EXE")
 else()
+    message("-- [INFO] Found USERCFG_OBJCOPY_EXE: ${USERCFG_OBJCOPY_EXE}")
     set(FLAG_OBJCOPY_AVAILABLE 1)
+endif()
+
+# Constrain 11 - Required - Checking for build tool
+find_program(BUILD_TOOL_EXECUTION ${USERCFG_TOOLCHAIN_BUILD_TOOL})
+if(NOT BUILD_TOOL_EXECUTION)
+    message(FATAL_ERROR "-- [FATAL_ERROR] Cannot find USERCFG_TOOLCHAIN_BUILD_TOOL")
+else()
+    message("-- [INFO] Found USERCFG_TOOLCHAIN_BUILD_TOOL: ${USERCFG_TOOLCHAIN_BUILD_TOOL}")
 endif()
 
 # Constrain 7 - Optional - Checking for compilation flags (debug)
 if("" STREQUAL "${COMPILE_DEBUG_FLAG}")
     message("-- [WARNING] COMPILE_DEBUG_FLAG is not set!")
+else()
+    message("-- [INFO] COMPILE_DEBUG_FLAG: ${COMPILE_DEBUG_FLAG}")
 endif()
 
 # Constrain 8 - Optional - Checking for linking flags (debug)
 if("" STREQUAL "${LINKING_DEBUG_FLAG}")
     message("-- [WARNING] LINKING_DEBUG_FLAG is not set!")
+else()
+    message("-- [INFO] LINKING_DEBUG_FLAG: ${LINKING_DEBUG_FLAG}")
 endif()
 
 # Constrain 9 - Optional - Checking for compilation flags (release)
 if("" STREQUAL "${COMPILE_RELEASE_FLAG}")
     message("-- [WARNING] COMPILE_RELEASE_FLAG is not set!")
+else()
+    message("-- [INFO] COMPILE_RELEASE_FLAG: ${COMPILE_RELEASE_FLAG}")
 endif()
 
 # Constrain 10 - Optional - Checking for linking flags (release)
 if("" STREQUAL "${LINKING_RELEASE_FLAG}")
     message("-- [WARNING] LINKING_RELEASE_FLAG is not set!")
+else()
+    message("-- [INFO] LINKING_RELEASE_FLAG: ${LINKING_RELEASE_FLAG}")
 endif()
 
+message("\n")
 
+
+# message(FATAL_ERROR "")
 # =======================================================================================
 # TOOLCHAIN DEFINITION
 # =======================================================================================
+message("-- [INFO] Toolchain Definition")
+message("-- [INFO] --------------------")
 set(CMAKE_C_COMPILER    ${MINGW64_GCC_EXECUTION})
 set(CMAKE_CXX_COMPILER  ${MINGW64_GPP_EXECUTION})
 
@@ -304,16 +379,29 @@ message("-- [INFO] LINKING_DEBUG_FLAG: ${LINKING_DEBUG_FLAG}")
 message("-- [INFO] COMPILE_RELEASE_FLAG: ${COMPILE_RELEASE_FLAG}")
 message("-- [INFO] LINKING_RELEASE_FLAG: ${LINKING_RELEASE_FLAG}")
 
+message("\n")
 
+
+# message(FATAL_ERROR "")
 # =======================================================================================
 # CMAKE CONFIGURATIONS
 # =======================================================================================
+message("-- [INFO] CMake Configuration")
+message("-- [INFO] -------------------")
 set(CMAKE_EXPORT_COMPILE_COMMANDS 1)            # Export compile command for clangd
 
 message("-- [INFO] CMAKE_EXPORT_COMPILE_COMMANDS = ${CMAKE_EXPORT_COMPILE_COMMANDS}")
 
+message("\n")
 
+
+# message(FATAL_ERROR "")
 # =======================================================================================
 # SUB_DIRECTORY
 # =======================================================================================
+message("-- [INFO] Sub-directories")
+message("-- [INFO] ---------------")
+
+# Codebase
 add_subdirectory(Codebase)
+

@@ -15,6 +15,9 @@
 ########################
 
 //Path to a program.
+BUILD_TOOL_EXECUTION:FILEPATH=C:/ninja-win/ninja.exe
+
+//Path to a program.
 CMAKE_ADDR2LINE:FILEPATH=C:/mingw64/bin/addr2line.exe
 
 //Path to a program.
@@ -243,13 +246,40 @@ CMAKE_TOOLCHAIN_FILE:FILEPATH=D:/Workspace/StandardProject_CCXX/Toolchain/Mingw6
 CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 
 //No help, variable specified on the command line.
+DEFAULT_CMAKE_SCRIPT_FILE:UNINITIALIZED=CMakeLists.txt
+
+//No help, variable specified on the command line.
+DEFAULT_CODEBASE_DIR:UNINITIALIZED=Codebase
+
+//No help, variable specified on the command line.
+DEFAULT_INCLUDE_DIR:UNINITIALIZED=Include
+
+//No help, variable specified on the command line.
 DEFAULT_INSTALL_BINARY_DIR:UNINITIALIZED=Bin
+
+//No help, variable specified on the command line.
+DEFAULT_INSTALL_DIR:UNINITIALIZED=Install
 
 //No help, variable specified on the command line.
 DEFAULT_INSTALL_INCLUDE_DIR:UNINITIALIZED=Include
 
 //No help, variable specified on the command line.
 DEFAULT_INSTALL_LIBRARY_DIR:UNINITIALIZED=Lib
+
+//No help, variable specified on the command line.
+DEFAULT_SOURCE_DIR:UNINITIALIZED=Source
+
+//Path to a program.
+MINGW64_AR_EXECUTION:FILEPATH=C:/mingw64/bin/x86_64-w64-mingw32-gcc-ar.exe
+
+//Path to a program.
+MINGW64_GCC_EXECUTION:FILEPATH=C:/mingw64/bin/x86_64-w64-mingw32-gcc.exe
+
+//Path to a program.
+MINGW64_GPP_EXECUTION:FILEPATH=C:/mingw64/bin/x86_64-w64-mingw32-g++.exe
+
+//Path to a program.
+MINGW64_OBJCOPY_EXECUTION:FILEPATH=C:/mingw64/bin/objcopy.exe
 
 //No help, variable specified on the command line.
 PROJECT_NAME:UNINITIALIZED=StandardProject
@@ -262,6 +292,9 @@ StandardProject_IS_TOP_LEVEL:STATIC=ON
 
 //Value Computed by CMake
 StandardProject_SOURCE_DIR:STATIC=D:/Workspace/StandardProject_CCXX
+
+//No help, variable specified on the command line.
+USERCFG_TOOLCHAIN_BUILD_TOOL:UNINITIALIZED=Ninja
 
 
 ########################
@@ -372,7 +405,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=1
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=3
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

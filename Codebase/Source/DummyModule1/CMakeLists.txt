@@ -32,16 +32,16 @@
 # =======================================================================================
 # CONSTANTS
 # =======================================================================================
+message("-- [INFO] Building target: DummyModule1")
+message("-- [INFO] -----------------------------")
 set(TARGET DummyModule1)
 
-message("-- [INFO] Target: ${TARGET}")
 
-
+# message(FATAL_ERROR "STOP")
 # =======================================================================================
 # SOURCE
 # =======================================================================================
 set(TARGET_SRC DummyModule1.c)
-
 message("-- [INFO] ${TARGET}'s Source: ${TARGET_SRC}")
 
 
@@ -49,7 +49,6 @@ message("-- [INFO] ${TARGET}'s Source: ${TARGET_SRC}")
 # HEADER
 # =======================================================================================
 set(TARGET_HEADER ${H_DIR})
-
 message("-- [INFO] ${TARGET}'s Header: ${TARGET_HEADER}")
 
 
@@ -70,4 +69,5 @@ target_compile_options(${TARGET} PUBLIC
 )
 
 # Installation
-install(TARGETS ${TARGET} DESTINATION ${INSTALL_LIB_DIR})
+install(TARGETS ${TARGET} DESTINATION ${DEFAULT_INSTALL_LIBRARY_DIR})
+message("-- [INFO] Installing at ${CMAKE_SOURCE_DIR}/${DEFAULT_INSTALL_DIR}/${DEFAULT_INSTALL_LIBRARY_DIR}")  

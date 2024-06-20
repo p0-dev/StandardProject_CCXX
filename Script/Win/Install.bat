@@ -21,11 +21,9 @@
 :: ======================================================================================
 :: FILE INFORMATION
 :: ======================================================================================
-:: NAME             | Clean.bat
+:: NAME             | Build.bat
 :: --------------------------------------------------------------------------------------
-:: DESCRIPTION      | - Remove all contents inside Root/Build directory
-::                  | - Remove all contents inside Root/Diagram directory
-::                  | - Remove all contents inside Root/Install directory
+:: DESCRIPTION      | Building the project with specified configuration of CMake's script
 :: --------------------------------------------------------------------------------------
 
 
@@ -42,7 +40,11 @@
 :: CONFIGURATIONS
 :: ======================================================================================
 @echo off
-echo -- [BATCH_INFO] CLEANING PROJECT RESULT FILES ... 
+echo -- [BATCH_INFO] INSTALLING THE PROJECT ...
+echo -- [BATCH_INFO] --------------------------
+cd ../../
+echo -- [BATCH_INFO] Navigating to %cd%
+echo.
 
 
 :: ======================================================================================
@@ -50,26 +52,15 @@ echo -- [BATCH_INFO] CLEANING PROJECT RESULT FILES ...
 :: ======================================================================================
 set "USERCFG_FILE=UserConfig.cfg"
 set "PROJECTCFG_FILE=ProjectConfig.cfg"
+set "BUILD_DEBUG=Debug"
+set "BUILD_RELEASE=Release"
 
 
 :: ======================================================================================
-:: NAVIGATION -> ROOT
+:: PROCESSING PROJECT CONFIGURATION FILE
 :: ======================================================================================
-cd ../../
-echo -- [BATCH_INFO] Navigating to %cd%
-
-
-:: ======================================================================================
-:: PROCESSING CFG FILES
-:: ======================================================================================
-
-:: Constrain - Required - USERCFG_FILE
-if not exist %USERCFG_FILE% (
-    echo -- [FATAL_ERROR] Cannot find %cd%\%USERCFG_FILE%
-    exit
-) else (
-    echo -- [BATCH_INFO] Found %cd%\%USERCFG_FILE%
-)
+echo -- [BATCH_INFO] Processing PROJECTCFG_FILE
+echo -- [BATCH_INFO] --------------------------
 
 :: Constrain - Required - PROJECTCFG_FILE
 if not exist %PROJECTCFG_FILE% (
@@ -79,58 +70,83 @@ if not exist %PROJECTCFG_FILE% (
     echo -- [BATCH_INFO] Found %cd%\%PROJECTCFG_FILE%
 )
 
-:: Process
+:: Process PROJECTCFG_FILE
 for /f "tokens=1,2 delims==" %%a in ('type "%PROJECTCFG_FILE%" ^| findstr /r /v /c:"#.*"') do (
     :: DEFAULT_BUILD_DIR
     if "%%a" == "DEFAULT_BUILD_DIR" set "DEFAULT_BUILD_DIR=%%b"
-    :: DEFAULT_DIAGRAM_DIR
-    if "%%a" == "DEFAULT_DIAGRAM_DIR" set "DEFAULT_DIAGRAM_DIR=%%b"
-    :: DEFAULT_INSTALL_DIR
-    if "%%a" == "DEFAULT_INSTALL_DIR" set "DEFAULT_INSTALL_DIR=%%b"
 )
 
-:: Constrain - Checking parameters
+:: Constrain - DEFAULT_BUILD_DIR parameter
 if "" == "%DEFAULT_BUILD_DIR%" (
     echo -- [FATAL_ERROR] DEFAULT_BUILD_DIR "(%PROJECTCFG_FILE%)" is not set
     exit
-)
-if "" == "%DEFAULT_DIAGRAM_DIR%" (
-    echo -- [FATAL_ERROR] DEFAULT_DIAGRAM_DIR "(%PROJECTCFG_FILE%)" is not set
-    exit
-)
-if "" == "%DEFAULT_INSTALL_DIR%" (
-    echo -- [FATAL_ERROR] DEFAULT_INSTALL_DIR "(%PROJECTCFG_FILE%)" is not set
-    exit
+) else (
+    echo -- [BATCH_INFO] DEFAULT_BUILD_DIR: %DEFAULT_BUILD_DIR%
 )
 
-:: Debug - Parameters
-echo -- [BATCH_INFO] DEFAULT_BUILD_DIR: %DEFAULT_BUILD_DIR%
-echo -- [BATCH_INFO] DEFAULT_DIAGRAM_DIR: %DEFAULT_DIAGRAM_DIR%
-echo -- [BATCH_INFO] DEFAULT_INSTALL_DIR: %DEFAULT_INSTALL_DIR%
+:: Constrain - DEFAULT_BUILD_DIR exist
+if not exist %DEFAULT_BUILD_DIR% (
+    echo -- [FATAL_ERROR] Directory %DEFAULT_BUILD_DIR% is not existed
+    exit
+) else (
+    echo -- [BATCH_INFO] Found %cd%\%DEFAULT_BUILD_DIR%
+)
+
+echo.
 
 
 :: ======================================================================================
-:: CLEANING
+:: PROCESSING USER CONFIGURATION FILE
 :: ======================================================================================
+echo -- [BATCH_INFO] Processing USERCFG_FILE
+echo -- [BATCH_INFO] -----------------------
 
-:: Cleaning: DEFAULT_BUILD_DIR
-if exist %DEFAULT_BUILD_DIR% (
-    rmdir /s /q %DEFAULT_BUILD_DIR%
-    echo -- [BATCH_INFO] Cleaned directory %DEFAULT_BUILD_DIR%
-)
-:: Cleaning: DEFAULT_DIAGRAM_DIR
-if exist %DEFAULT_DIAGRAM_DIR% (
-    rmdir /s /q %DEFAULT_DIAGRAM_DIR%
-    echo -- [BATCH_INFO] Cleaned directory %DEFAULT_DIAGRAM_DIR%
-)
-
-:: Cleaning: DEFAULT_INSTALL_DIR
-if exist %DEFAULT_INSTALL_DIR% (
-    rmdir /s /q %DEFAULT_INSTALL_DIR%
-    echo -- [BATCH_INFO] Cleaned directory %DEFAULT_INSTALL_DIR%
+:: Constrain - Required - USERCFG_FILE
+if not exist %USERCFG_FILE% (
+    echo -- [FATAL_ERROR] Cannot find %cd%\%USERCFG_FILE%
+    exit
+) else (
+    echo -- [BATCH_INFO] Found %cd%\%USERCFG_FILE%
 )
 
-:: Create: required directory
-mkdir %DEFAULT_BUILD_DIR%
-mkdir %DEFAULT_DIAGRAM_DIR%
-mkdir %DEFAULT_INSTALL_DIR%
+:: Process USERCFG_FILE
+for /f "tokens=1,2 delims==" %%a in ('type "%USERCFG_FILE%" ^| findstr /r /v /c:"#.*"') do (
+    :: USERCFG_INSTALL_DIR
+    if "%%a" == "USERCFG_INSTALL_DIR" set "USERCFG_INSTALL_DIR=%%b"
+)
+
+:: Constrain - USERCFG_INSTALL_DIR parameter
+if "" == "%USERCFG_INSTALL_DIR%" (
+    echo -- [FATAL_ERROR] USERCFG_INSTALL_DIR "(%PROJECTCFG_FILE%)" is not set
+    exit
+) else (
+    echo -- [BATCH_INFO] USERCFG_INSTALL_DIR: %USERCFG_INSTALL_DIR%
+)
+
+:: Constrain - USERCFG_INSTALL_DIR exist
+if not exist %USERCFG_INSTALL_DIR% (
+    echo -- [FATAL_ERROR] Directory for installation: %USERCFG_INSTALL_DIR% is not existed
+    exit
+) else (
+    echo -- [BATCH_INFO] Found %USERCFG_INSTALL_DIR%
+)
+
+echo.
+
+
+:: ======================================================================================
+:: INSTALLATION PROCESS
+:: ======================================================================================
+echo -- [BATCH_INFO] Invoking CMake's installation ...
+echo -- [BATCH_INFO] ---------------------------------
+
+set "DINS_ARGS=--install %DEFAULT_BUILD_DIR%"
+set "DINS_ARGS=%DINS_ARGS% --prefix %USERCFG_INSTALL_DIR%"
+set "DINS_ARGS=%DINS_ARGS% --verbose"
+set "DINS_ARGS=%DINS_ARGS% --strip"
+
+echo -- [BATCH_INFO] Default Installation Args: %DINS_ARGS%
+
+cmake %DINS_ARGS%
+
+echo.

@@ -1,0 +1,6 @@
+# ninja log v6
+23	41	7405676084799277	clean	6acaa9d0495496a6
+8	87	7405676085285854	Codebase/Source/DummyModule1/CMakeFiles/DummyModule1.dir/DummyModule1.c.obj	362848aad55b19f2
+13	103	7405676085335684	Codebase/CMakeFiles/StandardProject_exe.dir/Source/Main.c.obj	58e190540a20c0a7
+89	190	7405676086088654	Codebase/Source/DummyModule1/libDummyModule1.a	994f8ed63c684a5f
+190	296	7405676087102556	Codebase/StandardProject_exe.exe	afdc4966fce922ba
