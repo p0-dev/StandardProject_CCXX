@@ -43,6 +43,7 @@
 # =======================================================================================
 # PREPARATION
 # =======================================================================================
+message("\n")
 message("-- [INFO] BUILDING ${DEFAULT_CODEBASE_DIR} ... ")
 message("-- [INFO] -------------------------------------")
 message("\n")
@@ -69,7 +70,6 @@ message("\n")
 # =======================================================================================
 message("-- [INFO] Identifying include directory")
 message("-- [INFO] -----------------------------")
-
 # Specification
 set(H_DIR ${CMAKE_CURRENT_SOURCE_DIR}/${DEFAULT_INCLUDE_DIR})
 if(NOT EXISTS ${H_DIR})
@@ -91,21 +91,12 @@ message("\n")
 # =======================================================================================
 message("-- [INFO] Checking module directory")
 message("-- [INFO] -------------------------")
-
 # Module: DummyModule1
 set(DummyModule1_DIR ${CMAKE_CURRENT_SOURCE_DIR}/${DEFAULT_SOURCE_DIR}/DummyModule1)
 if (NOT EXISTS ${DummyModule1_DIR})
     message(FATAL_ERROR "-- [FATAL_ERROR] Cannot find ${DummyModule1_DIR}")
 else()
     message("-- [INFO] Found ${DummyModule1_DIR}")
-endif()
-
-# Module: DummyModule2
-set(DummyModule2_DIR ${CMAKE_CURRENT_SOURCE_DIR}/${DEFAULT_SOURCE_DIR}/DummyModule2)
-if (NOT EXISTS ${DummyModule2_DIR})
-    message(FATAL_ERROR "-- [FATAL_ERROR] Cannot find ${DummyModule2_DIR}")
-else()
-    message("-- [INFO] Found ${DummyModule2_DIR}")
 endif()
 
 message("\n")
@@ -126,16 +117,6 @@ else()
 endif()
 message("\n")
 
-# Module: DummyModule2
-add_subdirectory(${DummyModule2_DIR})
-set(DummyModule2_TARGET DummyModule2)
-if (NOT TARGET ${DummyModule2_TARGET})
-    message(FATAL_ERROR "-- [FATAL_ERROR] Target: ${DummyModule2_TARGET} not available")    
-else()
-    message("-- [INFO] Target: ${DummyModule2_TARGET} is available")
-endif()
-message("\n")
-
 
 # message(FATAL_ERROR "STOP")
 # =======================================================================================
@@ -153,14 +134,9 @@ target_include_directories(${EXE_TARGET} PUBLIC ${H_DIR})
 message("-- [INFO] Header: ${H_DIR}")
 
 # Target: Execution - Linking Internal Libraries
-
 ## Linking -> DummyModule1_TARGET
 target_link_libraries(${EXE_TARGET} PUBLIC ${DummyModule1_TARGET})
 message("-- [INFO] Link: ${DummyModule1_TARGET}")
-
-## Linking -> DummyModule2_TARGET
-target_link_libraries(${EXE_TARGET} PUBLIC ${DummyModule2_TARGET})
-message("-- [INFO] Link: ${DummyModule2_TARGET}")
 
 # Target: Execution - Compile Flags
 target_compile_options(${EXE_TARGET} PUBLIC

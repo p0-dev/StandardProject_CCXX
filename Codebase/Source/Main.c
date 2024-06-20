@@ -41,7 +41,6 @@
 // INCLUDE - INTERNAL LIBRARY
 // ======================================================================================
 #include "StandardProject/DummyModule1/DummyModule1.h"
-#include "StandardProject/DummyModule2/DummyModule2.h"
 
 
 // ======================================================================================
@@ -57,6 +56,5 @@ int main (void)
 {
     printf("Main Function\n");
     DummyModule1_Function1();
-    DummyModule2_Function1();
     return 0;
 }

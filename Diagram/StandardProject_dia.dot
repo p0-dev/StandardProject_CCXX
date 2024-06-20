@@ -23,8 +23,6 @@ subgraph clusterLegend {
   legendNode0 -> legendNode7;
 }
     "node0" [ label = "DummyModule1", shape = octagon ];
-    "node1" [ label = "DummyModule2", shape = octagon ];
-    "node2" [ label = "StandardProject_exe", shape = egg ];
-    "node2" -> "node0" [ style = dotted ] // StandardProject_exe -> DummyModule1
-    "node2" -> "node1" [ style = dotted ] // StandardProject_exe -> DummyModule2
+    "node1" [ label = "StandardProject_exe", shape = egg ];
+    "node1" -> "node0" [ style = dotted ] // StandardProject_exe -> DummyModule1
 }

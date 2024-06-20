@@ -7,7 +7,7 @@
 
 # =============================================================================
 # Project: StandardProject
-# Configurations: Release
+# Configurations: Debug
 # =============================================================================
 # =============================================================================
 
@@ -22,7 +22,7 @@ rule CUSTOM_COMMAND
 #############################################
 # Rule for compiling C files.
 
-rule C_COMPILER__StandardProject_exe_unscanned_Release
+rule C_COMPILER__StandardProject_exe_unscanned_Debug
   depfile = $DEP_FILE
   deps = gcc
   command = ${LAUNCHER}${CODE_CHECK}C:\mingw64\bin\x86_64-w64-mingw32-gcc.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -32,7 +32,7 @@ rule C_COMPILER__StandardProject_exe_unscanned_Release
 #############################################
 # Rule for linking C executable.
 
-rule C_EXECUTABLE_LINKER__StandardProject_exe_Release
+rule C_EXECUTABLE_LINKER__StandardProject_exe_Debug
   command = C:\Windows\system32\cmd.exe /C "$PRE_LINK && C:\mingw64\bin\x86_64-w64-mingw32-gcc.exe $FLAGS $LINK_FLAGS $in -o $TARGET_FILE -Wl,--out-implib,$TARGET_IMPLIB -Wl,--major-image-version,0,--minor-image-version,0 $LINK_PATH $LINK_LIBRARIES && $POST_BUILD"
   description = Linking C executable $TARGET_FILE
   restat = $RESTAT
@@ -41,7 +41,7 @@ rule C_EXECUTABLE_LINKER__StandardProject_exe_Release
 #############################################
 # Rule for compiling C files.
 
-rule C_COMPILER__DummyModule1_unscanned_Release
+rule C_COMPILER__DummyModule1_unscanned_Debug
   depfile = $DEP_FILE
   deps = gcc
   command = ${LAUNCHER}${CODE_CHECK}C:\mingw64\bin\x86_64-w64-mingw32-gcc.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
@@ -51,26 +51,7 @@ rule C_COMPILER__DummyModule1_unscanned_Release
 #############################################
 # Rule for linking C static library.
 
-rule C_STATIC_LIBRARY_LINKER__DummyModule1_Release
-  command = C:\Windows\system32\cmd.exe /C "$PRE_LINK && "C:\Program Files\CMake\bin\cmake.exe" -E rm -f $TARGET_FILE && C:\mingw64\bin\x86_64-w64-mingw32-gcc-ar.exe qc $TARGET_FILE $LINK_FLAGS $in && C:\mingw64\bin\ranlib.exe $TARGET_FILE && $POST_BUILD"
-  description = Linking C static library $TARGET_FILE
-  restat = $RESTAT
-
-
-#############################################
-# Rule for compiling C files.
-
-rule C_COMPILER__DummyModule2_unscanned_Release
-  depfile = $DEP_FILE
-  deps = gcc
-  command = ${LAUNCHER}${CODE_CHECK}C:\mingw64\bin\x86_64-w64-mingw32-gcc.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
-  description = Building C object $out
-
-
-#############################################
-# Rule for linking C static library.
-
-rule C_STATIC_LIBRARY_LINKER__DummyModule2_Release
+rule C_STATIC_LIBRARY_LINKER__DummyModule1_Debug
   command = C:\Windows\system32\cmd.exe /C "$PRE_LINK && "C:\Program Files\CMake\bin\cmake.exe" -E rm -f $TARGET_FILE && C:\mingw64\bin\x86_64-w64-mingw32-gcc-ar.exe qc $TARGET_FILE $LINK_FLAGS $in && C:\mingw64\bin\ranlib.exe $TARGET_FILE && $POST_BUILD"
   description = Linking C static library $TARGET_FILE
   restat = $RESTAT
