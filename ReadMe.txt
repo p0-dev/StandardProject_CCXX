@@ -19,24 +19,64 @@
 
 
 # =======================================================================================
+# AUTHOR
+# =======================================================================================
+# NAME      | Thanh Tran (tt)
+# ---------------------------------------------------------------------------------------
+# CONTACT   | thanhvpt11235@gmail.com
+# ---------------------------------------------------------------------------------------
+
+
+# =======================================================================================
 # INTRODUCTION
 # =======================================================================================
-    This file is intended as an introduction for the project. This file will be removed 
-or editted in the future, depends on the future project.
+The project called "StandardProject_CCXX" is used as a standard C/C++ project (baseline) 
+for further development. Depends on the future project requirement, a lot of elements 
+from this StandardProject_CCXX could be changed.
 
-    Originally, the StandardProject is used as a guided project and standard structure 
-for C/C++ project with CMake, Ninja.
+The project introduction will be start with User Configuration (UserConfig.cfg) and
+expands to other elements of the project
 
 
 # =======================================================================================
-# BRANCH STRUCTURE FOR WORKING WITH GIT/GITHUB
+# RECOMMENDED BRANCH STRUCTURE FOR WORKING WITH GIT/GITHUB
 # =======================================================================================
-    The brach "main" or "master" will be always keep empty or clean for the purpose
-of cloning a clean/empty branch.
-    The branch "dev" will be hosted with newest update of the source code for testing 
-and production.
-    Each feature of the project will be developed inside separared branch such as 
-"dev/ethernet driver", and later will be merge with the branch "dev".
-    The branch "testing" will be used for testing, before release.
-    The branch "pre-release" and "release" will be the newest production code in order 
-to release to the customers. 
+
++ ---------------- + 
++ Branch: main     +
++ ---------------- + 
+(Keep clean, with only CopyRight.txt and ReadMe.txt, required info)
+
++ ---------------- + 
++ Branch: dev      + 
++ ---------------- + 
+(Development branch, updated with newest code)
+|
+|
+-->     + ----------------------- + 
+        + Branch: feature/module1 + 
+        + ----------------------- + 
+        (Feature branch, development feature and merge with branch: dev)
+|
+|
+-->     + ----------------------- + 
+        + Branch: feature/module2 + 
+        + ----------------------- + 
+        (Feature branch, development feature and merge with branch: dev)
+|
+|
+-->     + ----------------------- + 
+        + Branch: feature/module3 + 
+        + ----------------------- + 
+        (Feature branch, development feature and merge with branch: dev)
+
+
++ ---------------- + 
++ Branch: staging  + 
++ ---------------- + 
+(Staging branch, for testing. Merge with branch: dev for getting updated source to test)
+
++ ---------------- + 
++ Branch: release  + 
++ ---------------- + 
+(Release branch, for release/production. Merge with branch: staging after test)
