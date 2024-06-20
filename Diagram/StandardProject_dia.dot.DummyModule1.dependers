@@ -1,0 +1,8 @@
+digraph "DummyModule1" {
+node [
+  fontsize = "12"
+];
+    "node0" [ label = "DummyModule1", shape = octagon ];
+    "node1" [ label = "StandardProject_exe", shape = egg ];
+    "node1" -> "node0" [ style = dotted ] // StandardProject_exe -> DummyModule1
+}
