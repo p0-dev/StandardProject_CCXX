@@ -21,27 +21,27 @@
 # =======================================================================================
 # FILE INFORMATION
 # =======================================================================================
-# NAME              | CMakeLists.txt (DummyModule1)
+# NAME              | CMakeLists.txt (DummyModule3)
 # ---------------------------------------------------------------------------------------
-# LOCATION          | Root/Codebase/Source/DummyModule1/CMakeLists.txt
+# LOCATION          | Root/Codebase/Source/DummyModule3/CMakeLists.txt
 # ---------------------------------------------------------------------------------------
-# CONTENT           | Specification of header and source for DummyModule1
+# CONTENT           | Specification of header and source for DummyModule3
 # ---------------------------------------------------------------------------------------
 
 
 # =======================================================================================
 # CONSTANTS
 # =======================================================================================
-message("-- [INFO] Building target: DummyModule1")
+message("-- [INFO] Building target: DummyModule3")
 message("-- [INFO] -----------------------------")
-set(TARGET DummyModule1)
+set(TARGET DummyModule3)
 
 
 # message(FATAL_ERROR "STOP")
 # =======================================================================================
 # SOURCE
 # =======================================================================================
-set(TARGET_SRC DummyModule1.c)
+set(TARGET_SRC DummyModule3.c)
 message("-- [INFO] ${TARGET}'s Source: ${TARGET_SRC}")
 
 
@@ -53,7 +53,7 @@ message("-- [INFO] ${TARGET}'s Header: ${TARGET_HEADER}")
 
 
 # =======================================================================================
-# TARGET - DUMMY MODULE 1
+# TARGET - DUMMY MODULE 3
 # =======================================================================================
 
 # Main Target
@@ -67,11 +67,6 @@ target_compile_options(${TARGET} PUBLIC
     $<$<CONFIG:Debug>:${COMPILE_DEBUG_FLAG}>
     $<$<CONFIG:Release>:${COMPILE_RELEASE_FLAG}>
 )
-
-# Linking
-## DummyModule3
-target_link_libraries(${TARGET} PRIVATE ${DummyModule3_TARGET})
-message("-- [INFO] Link: ${DummyModule3_TARGET}")
 
 # Installation
 install(TARGETS ${TARGET} DESTINATION ${DEFAULT_INSTALL_LIBRARY_DIR})

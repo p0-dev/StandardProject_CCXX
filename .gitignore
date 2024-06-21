@@ -30,7 +30,11 @@
 # =======================================================================================
 # IGNORING DIRECTORY LIST
 # =======================================================================================
+# .cache    # Cache directory for clangd
+# Build     # Build results file from build process
+# Install   # Install results file from build process
+# Diagram   # Diagram results file from build process
+
 .cache
-Build
+Build 
 Install
-Diagram
