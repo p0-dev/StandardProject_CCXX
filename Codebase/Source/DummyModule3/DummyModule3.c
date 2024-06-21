@@ -21,44 +21,37 @@
 /* ======================================================================================
 ** FILE INFORMATION
 ** ======================================================================================
-** NAME             | DummyModule1.c
+** NAME             | DummyModule3.c
 ** --------------------------------------------------------------------------------------
-** LOCATION         | Root/Codebase/Source/DummyModule1.c
+** LOCATION         | Root/Codebase/Source/DummyModule3/DummyModule3.c
 ** --------------------------------------------------------------------------------------
-** DESCRIPTION      | Implementation of DummyModule1
+** DESCRIPTION      | Implementation file for DummyModule3
 -------------------------------------------------------------------------------------- */
 
 
 // ======================================================================================
-// INCLUDE - DUMMY MODULE 1
-// ======================================================================================
-#include "StandardProject/DummyModule1/DummyModule1.h"
-
-
-// ======================================================================================
-// INCLUDE - INTERNAL LIBRARIES
+// INCLUDE - MAIN
 // ======================================================================================
 #include "StandardProject/DummyModule3/DummyModule3.h"
 
 
 // ======================================================================================
-// INCLUDE - STANDARD LIBRARY
+// INCLUDE - STANDARD LIBRARIES
 // ======================================================================================
 #include <stdio.h>
 
 
 // ======================================================================================
-// IMPLEMENTATION - FUNCTIONS
+// IMPLEMENTATION - API FUNCTIONS
 // ======================================================================================
 
 /**
- * @name DummyModule1_Function1
+ * @name DummyModule3_Function1
+ * @param in void
+ * @param out void
  * @return void
- * @param input void
- * @param output Dummy message on console
  */
-extern void DummyModule1_Function1 (void)
+extern void DummyModule3_Function1 (void)
 {
-    printf("DummyModule1_Function1\n");
-    DummyModule3_Function1();
+    printf("DummyModule3_Function1\n");
 }

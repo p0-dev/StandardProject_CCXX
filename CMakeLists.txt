@@ -176,8 +176,8 @@
 # =======================================================================================
 message("\n")
 
-message("-- [INFO] CMake Configuration Inputs")
-message("-- [INFO] --------------------------")
+message("-- [INFO] CMake Configuration Inputs (from Build script)")
+message("-- [INFO] ----------------------------------------------")
 
 message("-- [INFO] USERCFG_TOOLCHAIN_BUILD_TOOL: ${USERCFG_TOOLCHAIN_BUILD_TOOL}")
 
@@ -196,7 +196,6 @@ message("-- [INFO] CMAKE_BUILD_TYPE: ${CMAKE_BUILD_TYPE}")
 message("\n")
 
 
-# message(FATAL_ERROR "")
 # =======================================================================================
 # GLOBAL FLAGS FOR CMAKE TO PROCESS
 # =======================================================================================
@@ -216,19 +215,6 @@ message("-- [INFO] CMAKE_MINIMUM_REQUIRED_VERSION = ${CMAKE_MINIMUM_REQUIRED_VER
 message("\n")
 
 
-# message(FATAL_ERROR "")
-# =======================================================================================
-# PROJECT MAIN TARGETS DEFINITION
-# =======================================================================================
-set(EXE_TARGET "${PROJECT_NAME}_exe")
-
-message("-- [INFO] Main Project's Target")
-message("-- [INFO] ---------------------")
-message("-- [INFO] - ${EXE_TARGET}")
-message("\n")
-
-
-# message(FATAL_ERROR "")
 # =======================================================================================
 # GENERAL CONSTRAINS
 # =======================================================================================
@@ -324,28 +310,28 @@ endif()
 if("" STREQUAL "${COMPILE_DEBUG_FLAG}")
     message("-- [WARNING] COMPILE_DEBUG_FLAG is not set!")
 else()
-    message("-- [INFO] COMPILE_DEBUG_FLAG: ${COMPILE_DEBUG_FLAG}")
+    # message("-- [INFO] COMPILE_DEBUG_FLAG: ${COMPILE_DEBUG_FLAG}")
 endif()
 
 # Constrain 8 - Optional - Checking for linking flags (debug)
 if("" STREQUAL "${LINKING_DEBUG_FLAG}")
     message("-- [WARNING] LINKING_DEBUG_FLAG is not set!")
 else()
-    message("-- [INFO] LINKING_DEBUG_FLAG: ${LINKING_DEBUG_FLAG}")
+    # message("-- [INFO] LINKING_DEBUG_FLAG: ${LINKING_DEBUG_FLAG}")
 endif()
 
 # Constrain 9 - Optional - Checking for compilation flags (release)
 if("" STREQUAL "${COMPILE_RELEASE_FLAG}")
     message("-- [WARNING] COMPILE_RELEASE_FLAG is not set!")
 else()
-    message("-- [INFO] COMPILE_RELEASE_FLAG: ${COMPILE_RELEASE_FLAG}")
+    # message("-- [INFO] COMPILE_RELEASE_FLAG: ${COMPILE_RELEASE_FLAG}")
 endif()
 
 # Constrain 10 - Optional - Checking for linking flags (release)
 if("" STREQUAL "${LINKING_RELEASE_FLAG}")
     message("-- [WARNING] LINKING_RELEASE_FLAG is not set!")
 else()
-    message("-- [INFO] LINKING_RELEASE_FLAG: ${LINKING_RELEASE_FLAG}")
+    # message("-- [INFO] LINKING_RELEASE_FLAG: ${LINKING_RELEASE_FLAG}")
 endif()
 
 message("\n")
@@ -399,9 +385,6 @@ message("\n")
 # =======================================================================================
 # SUB_DIRECTORY
 # =======================================================================================
-message("-- [INFO] Sub-directories")
-message("-- [INFO] ---------------")
-
 # Codebase
 add_subdirectory(Codebase)
 

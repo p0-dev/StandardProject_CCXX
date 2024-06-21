@@ -21,44 +21,22 @@
 /* ======================================================================================
 ** FILE INFORMATION
 ** ======================================================================================
-** NAME             | DummyModule1.c
+** NAME             | DummyModule3.h
 ** --------------------------------------------------------------------------------------
-** LOCATION         | Root/Codebase/Source/DummyModule1.c
+** LOCATION         | Root/Codebase/Include/DummyModule3/DummyModule3.h
 ** --------------------------------------------------------------------------------------
-** DESCRIPTION      | Implementation of DummyModule1
+** DESCRIPTION      | Header file for DummyModule3
 -------------------------------------------------------------------------------------- */
 
 
-// ======================================================================================
-// INCLUDE - DUMMY MODULE 1
-// ======================================================================================
-#include "StandardProject/DummyModule1/DummyModule1.h"
+#ifndef __DUMMY_MODULE_3_H__
+#define __DUMMY_MODULE_3_H__
 
 
 // ======================================================================================
-// INCLUDE - INTERNAL LIBRARIES
+// DEFINITION - API FUNCTIONS
 // ======================================================================================
-#include "StandardProject/DummyModule3/DummyModule3.h"
+extern void DummyModule3_Function1 (void);
 
 
-// ======================================================================================
-// INCLUDE - STANDARD LIBRARY
-// ======================================================================================
-#include <stdio.h>
-
-
-// ======================================================================================
-// IMPLEMENTATION - FUNCTIONS
-// ======================================================================================
-
-/**
- * @name DummyModule1_Function1
- * @return void
- * @param input void
- * @param output Dummy message on console
- */
-extern void DummyModule1_Function1 (void)
-{
-    printf("DummyModule1_Function1\n");
-    DummyModule3_Function1();
-}
+#endif // __DUMMY_MODULE_3_H__

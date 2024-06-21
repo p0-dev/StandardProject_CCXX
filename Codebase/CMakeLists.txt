@@ -43,30 +43,13 @@
 # =======================================================================================
 # PREPARATION
 # =======================================================================================
-message("\n")
 message("-- [INFO] BUILDING ${DEFAULT_CODEBASE_DIR} ... ")
 message("-- [INFO] -------------------------------------")
 message("\n")
 
 
-# message(FATAL_ERROR "STOP")
 # =======================================================================================
-# MAIN SOURCE FILE
-# =======================================================================================
-message("-- [INFO] Identifying main source file")
-message("-- [INFO] -----------------------")
-set(C_MAIN ${CMAKE_CURRENT_SOURCE_DIR}/${DEFAULT_SOURCE_DIR}/Main.c)
-if(NOT EXISTS ${C_MAIN})
-    message(FATAL_ERROR "-- [FATAL_ERROR] Cannot find ${C_MAIN}")
-else()
-    message("-- [INFO] Found ${C_MAIN}")
-endif()
-
-message("\n")
-
-# message(FATAL_ERROR "STOP")
-# =======================================================================================
-# HEADER DIRECTORY SPECIFICATION
+# HEADER DIRECTORY SPECIFICATION FOR ALL TARGETS
 # =======================================================================================
 message("-- [INFO] Identifying include directory")
 message("-- [INFO] -----------------------------")
@@ -85,40 +68,88 @@ install(DIRECTORY ${H_DIR}/ DESTINATION ${DEFAULT_INSTALL_INCLUDE_DIR})
 message("\n")
 
 
-# message(FATAL_ERROR "STOP")
 # =======================================================================================
-# MODULE DIRECTORY
+# TARGET LIST OF THIS PROJECT
 # =======================================================================================
-message("-- [INFO] Checking module directory")
-message("-- [INFO] -------------------------")
-# Module: DummyModule1
-set(DummyModule1_DIR ${CMAKE_CURRENT_SOURCE_DIR}/${DEFAULT_SOURCE_DIR}/DummyModule1)
-if (NOT EXISTS ${DummyModule1_DIR})
-    message(FATAL_ERROR "-- [FATAL_ERROR] Cannot find ${DummyModule1_DIR}")
-else()
-    message("-- [INFO] Found ${DummyModule1_DIR}")
-endif()
+# The name of the target will be depends on the value of library name/module name.
+# Please check local CMakeLists.txt of each module for the information.
 
-message("\n")
+message("-- [INFO] Codebase Targets (for building):")
+message("-- [INFO] --------------------------------")
 
-
-# message(FATAL_ERROR "STOP")
-# =======================================================================================
-# SUB DIRECTORY / MODULE TARGET
-# =======================================================================================
-
-# Module: DummyModule1
-add_subdirectory(${DummyModule1_DIR})
+# Definition: Target Name
+set (Exe_TARGET ${PROJECT_NAME}_exe)
 set(DummyModule1_TARGET DummyModule1)
-if (NOT TARGET ${DummyModule1_TARGET})
-    message(FATAL_ERROR "-- [FATAL_ERROR] Target: ${DummyModule1_TARGET} not available")    
-else()
-    message("-- [INFO] Target: ${DummyModule1_TARGET} is available")
-endif()
+set(DummyModule2_TARGET DummyModule2)
+set(DummyModule3_TARGET DummyModule3)
+
+# Definition: Target Location
+set(DummyModule1_DIR ${CMAKE_CURRENT_SOURCE_DIR}/${DEFAULT_SOURCE_DIR}/DummyModule1)
+set(DummyModule2_DIR ${CMAKE_CURRENT_SOURCE_DIR}/${DEFAULT_SOURCE_DIR}/DummyModule2)
+set(DummyModule3_DIR ${CMAKE_CURRENT_SOURCE_DIR}/${DEFAULT_SOURCE_DIR}/DummyModule3)
+
+# Definition: Target Location List
+list(APPEND TARGET_LOCATION_LIST ${DummyModule1_DIR})
+list(APPEND TARGET_LOCATION_LIST ${DummyModule2_DIR})
+list(APPEND TARGET_LOCATION_LIST ${DummyModule3_DIR})
+
+message("-- [INFO] ${Exe_TARGET}")
+message("-- [INFO] ${DummyModule1_TARGET}")
+message("-- [INFO] ${DummyModule2_TARGET}")
+message("-- [INFO] ${DummyModule3_TARGET}")
+
+message("\n")
+
+message("-- [INFO] ${DummyModule1_DIR}")
+message("-- [INFO] ${DummyModule2_DIR}")
+message("-- [INFO] ${DummyModule3_DIR}")
+
+message("\n")
+
+message("-- [INFO] ${TARGET_LOCATION_LIST}")
+
 message("\n")
 
 
-# message(FATAL_ERROR "STOP")
+# =======================================================================================
+# BUILDING MODULES
+# =======================================================================================
+# The "Module Switch List" is used as master switch for each module to be ON/OFF, duing 
+# building process. Off a module could cause the building process to fail. Be careful.
+
+message("-- [INFO] Building Targets ----")
+message("-- [INFO] ---------------------")
+message("\n")
+
+foreach(TARGET_LOCATION ${TARGET_LOCATION_LIST})
+    message("\n")
+    if(NOT EXISTS ${TARGET_LOCATION})
+        message(FATAL_ERROR "-- [FATAL_ERROR] Cannot find ${TARGET_LOCATION}")
+    else()
+        message("-- [INFO] Found ${TARGET_LOCATION}")
+        add_subdirectory(${TARGET_LOCATION})
+    endif()
+    message("\n")
+endforeach()
+
+message("\n")
+
+
+# =======================================================================================
+# MAIN SOURCE FILE
+# =======================================================================================
+message("-- [INFO] Identifying main source file")
+message("-- [INFO] -----------------------")
+set(C_MAIN ${CMAKE_CURRENT_SOURCE_DIR}/${DEFAULT_SOURCE_DIR}/Main.c)
+if(NOT EXISTS ${C_MAIN})
+    message(FATAL_ERROR "-- [FATAL_ERROR] Cannot find ${C_MAIN}")
+else()
+    message("-- [INFO] Found ${C_MAIN}")
+endif()
+
+message("\n")
+
+
 # =======================================================================================
 # TARGET - EXECUTION
 # =======================================================================================
@@ -126,34 +157,37 @@ message("-- [INFO] Building main target")
 message("-- [INFO] --------------------")
 
 # Target: Execution - Main File
-add_executable(${EXE_TARGET} ${C_MAIN})
+add_executable(${Exe_TARGET} ${C_MAIN})
 message("-- [INFO] Source: ${C_MAIN}")
 
 # Target: Execution - Include Directory
-target_include_directories(${EXE_TARGET} PUBLIC ${H_DIR})
+target_include_directories(${Exe_TARGET} PUBLIC ${H_DIR})
 message("-- [INFO] Header: ${H_DIR}")
 
 # Target: Execution - Linking Internal Libraries
 ## Linking -> DummyModule1_TARGET
-target_link_libraries(${EXE_TARGET} PUBLIC ${DummyModule1_TARGET})
+target_link_libraries(${Exe_TARGET} PRIVATE ${DummyModule1_TARGET})
 message("-- [INFO] Link: ${DummyModule1_TARGET}")
+## Linking -> DummyModule2_TARGET
+target_link_libraries(${Exe_TARGET} PRIVATE ${DummyModule2_TARGET})
+message("-- [INFO] Link: ${DummyModule2_TARGET}")
 
 # Target: Execution - Compile Flags
-target_compile_options(${EXE_TARGET} PUBLIC
-    $<$<CONFIG:${BUILD_DEBUG}>:${COMPILE_DEBUG_FLAG}>
-    $<$<CONFIG:${BUILD_RELEASE}>:${COMPILE_RELEASE_FLAG}>
+target_compile_options(${Exe_TARGET} PUBLIC
+    $<$<CONFIG:Debug>:${COMPILE_DEBUG_FLAG}>
+    $<$<CONFIG:Release>:${COMPILE_RELEASE_FLAG}>
 )
 
 # Target: Execution - Linking Flags
-target_link_options(${EXE_TARGET} PUBLIC
-    $<$<CONFIG:${BUILD_DEBUG}>:${LINKING_DEBUG_FLAG}>
-    $<$<CONFIG:${BUILD_RELEASE}>:${LINKING_RELEASE_FLAG}>
+target_link_options(${Exe_TARGET} PUBLIC
+    $<$<CONFIG:Debug>:${LINKING_DEBUG_FLAG}>
+    $<$<CONFIG:Release>:${LINKING_RELEASE_FLAG}>
 )
 
 # Build Type
 message("-- [INFO] Build Configration: ${CMAKE_BUILD_TYPE}")
 
 # Target: Execution - Installation
-install(TARGETS ${EXE_TARGET} DESTINATION ${DEFAULT_INSTALL_BINARY_DIR})
+install(TARGETS ${Exe_TARGET} DESTINATION ${DEFAULT_INSTALL_BINARY_DIR})
 message("-- [INFO] Installing at ${CMAKE_SOURCE_DIR}/${DEFAULT_INSTALL_DIR}/${DEFAULT_INSTALL_BINARY_DIR}") 
 

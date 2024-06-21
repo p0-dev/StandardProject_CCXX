@@ -420,3 +420,12 @@ echo -- [BATCH_INFO] Default Installation Args: %DINS_ARGS%
 cmake %DINS_ARGS%
 
 echo.
+
+
+:: ======================================================================================
+:: CONVERTING DIAGRAM TO JPG
+:: ======================================================================================
+echo -- [BATCH_INFO] Converting project build diagram to image
+echo -- [BATCH_INFO] -----------------------------------------
+
+dot -Tjpg %DEFAULT_DIAGRAM_DIR%\%USERCFG_PROJECT_NAME%_dia.dot -O
