@@ -36,7 +36,7 @@ ninja %build_args%
 :: ======================================================================================
 echo -- [BUILD] CMake default install ...
 set "ins1_args=--install build"
-set "ins1_args=%ins1_args% --prefix install"
+set "ins1_args=%ins1_args% --prefix install/release"
 set "ins1_args=%ins1_args% --strip"
 echo -- [BUILD] Install parameters: %ins1_args%
 
@@ -49,7 +49,7 @@ echo -- [RESULT] --
 echo.
 echo.
 
-install\bin\main
+install\release\bin\main
 
 echo.
 echo.
