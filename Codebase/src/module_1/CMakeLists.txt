@@ -1,12 +1,12 @@
 # =======================================================================================
-# INCLUDE: PUBLIC HEADER
+# TARGET: MODULE_1
 # =======================================================================================
-include_directories(inc)
+add_library(module_1 
+            STATIC 
+            module_1_internal.c
+            module_1.c)
 
 # =======================================================================================
-# SUB_DIRECTORIES: MODULE LIST
+# TARGET: MODULE_1: LINKING LIBRARIES
 # =======================================================================================
-add_subdirectory(src/main)
-add_subdirectory(src/module_1)
-add_subdirectory(src/module_2)
-add_subdirectory(src/module_3)
+target_link_libraries(module_1 PRIVATE module_3)
